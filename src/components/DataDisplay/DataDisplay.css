@@ -1,0 +1,286 @@
+.data-display-container {
+    padding: 20px;
+}
+
+.info-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.info-item {
+    width: 48%;
+    /* Равное распределение по ширине */
+}
+
+.farm-info {
+    text-align: left;
+    /* Выровнять текст по левому краю */
+}
+
+.gpp-info {
+    text-align: left;
+    /* Выровнять текст по левому краю */
+}
+
+.summary-container {
+    margin-bottom: 20px;
+}
+
+pre {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    /* Позволяет переносу строк в <pre> */
+}
+
+.table-container {
+    margin-bottom: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table th {
+    background-color: #f4f4f4;
+}
+
+table td {
+    background-color: #ffffff;
+}
+
+
+h2 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    padding: 20px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #f4f4f4;
+    cursor: pointer;
+}
+
+.data-table td {
+    background-color: #fff;
+}
+
+.tables-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.farm-tables,
+.gpp-tables {
+    width: 48%;
+    /* Равное распределение по ширине */
+}
+
+.farm-tables>*+*,
+.gpp-tables>*+* {
+    margin-top: 20px;
+    /* Отступы между таблицами */
+}
+
+/* форма */
+.filter-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-row {
+    display: flex;
+    width: 100%;
+}
+
+.form-group label {
+    min-width: 120px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.space-between {
+    width: 20px;
+}
+
+.space {
+    height: 5px;
+}
+
+.form-button {
+    display: flex;
+    justify-content: center; /* Центрирует кнопку по горизонтали */
+    margin-top: 20px; /* Отступ сверху для отделения от предыдущих элементов */
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: auto; 
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+.reset-button {
+    margin-bottom: 10px;
+    background-color: #45a049;
+}
+
+
+.form-container {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: auto;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет чекбоксам оборачиваться на новые строки при необходимости */
+    gap: 10px; /* Отступ между чекбоксами */
+}
+
+.checkbox-group div {
+    display: flex;
+    align-items: center; /* Выравнивание чекбокса и текста по центру по вертикали */
+    margin: 0; /* Убирает стандартные отступы вокруг блока */
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin: 0; /* Убирает стандартные отступы у чекбокса */
+    padding: 0; /* Убирает возможные внутренние отступы */
+    width: 16px; /* Задает фиксированную ширину чекбокса (по желанию) */
+    height: 16px; /* Задает фиксированную высоту чекбокса (по желанию) */
+}
+
+.checkbox-group label {
+    margin-left: 5px; /* Уменьшает отступ между чекбоксом и текстом */
+    font-size: 14px; /* Задает размер шрифта (по желанию) */
+}
+
+/* форма */
+
+/* Адаптивные стили */
+@media (max-width: 1500px) {
+    .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-group label,
+    .form-group input {
+        width: 100%;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .space-between {
+        width: 100%;
+        height: 10px;
+    }
+
+    .submit-button {
+        width: 100%;
+    }
+
+    .checkbox-group div {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+.complex-filter-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    background-color: #f8f8f8;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    margin: 0 auto; /* Центрирует форму на странице */
+}
+
+.complex-filter-form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.complex-filter-form input[type="text"]::placeholder {
+    color: #999;
+}
+
+.complex-filter-form input[type="text"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}

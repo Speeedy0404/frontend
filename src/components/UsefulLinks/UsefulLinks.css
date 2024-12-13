@@ -1,0 +1,25 @@
+.useful-links {
+    color: #ffffff;
+}
+
+.useful-links h5 {
+    color: #ffdd57;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.useful-link-item {
+    background: none;
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+.useful-link-item a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.useful-link-item a:hover {
+    color: #ffdd57;
+}

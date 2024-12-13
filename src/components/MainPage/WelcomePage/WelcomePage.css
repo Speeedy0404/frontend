@@ -1,0 +1,51 @@
+.welcome-content {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-content h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.welcome-content p {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+    color: #555;
+}
+
+.welcome-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.welcome-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.welcome-button:hover {
+    background-color: #0056b3;
+}
+
+.auth-message {
+    font-size: 1.5em; /* Увеличенный размер шрифта для большей заметности */
+    font-weight: normal; /* Обычный вес текста для мягкости */
+    color: #4a90e2; /* Нежный синий цвет текста */
+    padding: 15px; /* Добавляем внутренние отступы */
+    background-color: #e8f4fc; /* Светлый синий фон для спокойного вида */
+    border-radius: 10px; /* Скругленные углы для плавности */
+    text-align: center; /* Центрирование текста */
+    margin-top: 20px; /* Отступ сверху */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень для объема */
+}

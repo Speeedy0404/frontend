@@ -1,0 +1,38 @@
+/* Скрываем всё, кроме области с классом print-area */
+@media print {
+    body * {
+      visibility: hidden;
+    }
+  
+    .print-area, .print-area * {
+      visibility: visible;
+    }
+  
+    .print-area {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+  }
+  
+/* Скрыть номер животного в режиме экрана */
+.animal-id-print {
+    display: none;
+}
+
+/* Показать номер животного только при печати */
+@media print {
+    .animal-id-print {
+        display: block;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    /* Скрываем остальные элементы, если нужно */
+    .print-button {
+        display: none;
+    }
+}
+
+

@@ -1,0 +1,51 @@
+/* Основные стили для футера */
+.footer-custom {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 40px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-custom .footer-col h5 {
+    color: #ffdd57;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.footer-custom .footer-col p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.footer-custom .social-icons {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.footer-custom .social-icons li {
+    display: inline-block;
+}
+
+.footer-custom .social-icons li a {
+    color: #ffffff;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.footer-custom .social-icons li a:hover {
+    color: #ffdd57;
+}
+
+.footer-bottom {
+    border-top: 1px solid #495057;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    font-size: 14px;
+    margin: 0;
+}

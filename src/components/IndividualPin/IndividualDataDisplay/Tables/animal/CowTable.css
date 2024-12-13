@@ -1,0 +1,86 @@
+.table-row.consolidated {
+    background-color: #f5f5f5; /* Серый фон */
+    color: #999; /* Светлый текст */
+    pointer-events: none; /* Отключение интерактивности */
+}
+
+.table-cell.indiv-number-cow {
+    min-width: 105px;
+    /* Или другое значение, чтобы столбец был немного шире */
+}
+
+.table-cell.data {
+    min-width: 90px;
+    /* Или другое значение, чтобы столбец был немного шире */
+}
+
+.table-header-cell.consolidation {
+    min-width: 90px;
+    max-width: 100px;
+    /* Или другое значение, чтобы столбец был немного шире */
+}
+
+.table-header-cell.first-column-cow {
+    min-width: 100px;
+    max-width: 110px;
+    /* Установите нужную ширину */
+}
+
+
+@media (max-width: 2180px) {
+    .table-header-cell.first-column-cow {
+        min-width: 65px;
+        max-width: 65px;
+    }
+    .table-header-cell.kompleks {
+        min-width: 60px;
+        max-width: 60px;
+        /* Установите нужную ширину */
+    }
+    .table-header-cell.RM {
+        min-width: 60px;
+        max-width: 60px;
+        /* Установите нужную ширину */
+    }
+    .table-header-cell.RBVU {
+        min-width: 70px;
+        max-width: 70px;
+        /* Установите нужную ширину */
+    }
+    
+}
+
+@media (max-width: 1700px) {
+    .table-header-cell.first-column-cow{
+        min-width: 65px;
+        max-width: 65px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .table-header-cell.first-column-cow{
+        min-width: 65px;
+        max-width: 65px;
+    }
+}
+
+@media (max-width: 900px) {
+    .table-header-cell.first-column-cow {
+        min-width: 60px;
+    }
+}
+/* .table-row-cow {
+    display: grid;
+    height: 100px;
+    grid-template-columns: repeat(12, 1fr);
+   
+    gap: 0;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+} */
+
+/* .table-header-cow {
+    display: flex;
+    grid-template-columns: repeat(12, 1fr);
+ 
+} */

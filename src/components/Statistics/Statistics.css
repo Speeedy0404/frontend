@@ -1,0 +1,113 @@
+/* Основные стили для контейнера */
+.statistics-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* Стиль для элементов summary-item */
+.summary-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Стиль для заголовков таблиц */
+.table-title {
+    font-size: 24px;
+    margin: 20px 0;
+    text-align: center;
+    color: #333;
+}
+
+/* Стиль для кнопки печати */
+.print-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.print-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Стили для печати */
+@media print {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 0; /* Уменьшите нижний отступ */
+    }
+
+    table th,
+    table td {
+        border: 1px solid #000; /* Более темные границы для печати */
+        padding: 4px; /* Уменьшите отступы для лучшего размещения на странице */
+        font-size: 8px; /* Уменьшите размер шрифта таблицы */
+    }
+
+    table th {
+        background-color: #e0e0e0; /* Легкий цвет фона для шапки */
+    }
+
+    table td {
+        background-color: #ffffff;
+    }
+
+    /* Убедитесь, что таблица не выходит за пределы страницы */
+    .table-container {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    /* Разбить длинные строки в таблицах */
+    table td {
+        word-wrap: break-word;
+    }
+
+    /* Убедитесь, что таблица не разрывается внутри страницы */
+    table {
+        page-break-inside: auto;
+    }
+
+    /* Опции для улучшения печати */
+    .print-button {
+        display: none; /* Скрыть кнопки или другие элементы, которые не должны печататься */
+    }
+
+    /* Стили для заголовков и текста рядом с таблицами */
+    .table-container h2 {
+        font-size: 12px; /* Уменьшите размер шрифта заголовков */
+        margin: 8px 0; /* Уменьшите отступы вокруг заголовков */
+        page-break-before: auto; /* Позволяет заголовкам быть на одной странице с таблицами */
+    }
+
+    .table-container p {
+        font-size: 10px; /* Уменьшите размер шрифта текста */
+        margin: 4px 0; /* Уменьшите отступы текста */
+        page-break-inside: avoid; /* Предотвращает разрыв текста на страницах */
+    }
+
+    /* Стили для контейнеров, чтобы они не выходили за границы страницы */
+    .table-container {
+        width: 100%;
+        overflow-x: visible; /* Убедитесь, что контейнер не имеет горизонтальной прокрутки */
+        box-sizing: border-box; /* Учитывайте padding и border в ширине контейнера */
+    }
+}

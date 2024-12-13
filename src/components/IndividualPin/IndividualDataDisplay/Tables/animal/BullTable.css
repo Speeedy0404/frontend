@@ -1,0 +1,118 @@
+.table-container {
+    padding: 1rem;
+    margin: auto;
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    position: relative;
+}
+
+.table-header {
+    display: flex;
+    grid-template-columns: repeat(13, 1fr);
+    /* Переопределите это значение в зависимости от ваших столбцов */
+}
+
+.table-header-row {
+    display: contents;
+    /* Используйте display: contents, чтобы избежать дополнительных оберток */
+}
+
+.table-header-cell,
+.table-cell {
+    border-bottom: 1px solid #ddd;
+    height: 40px;
+    padding: 8px;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Чтобы предотвратить переполнение текста */
+
+}
+
+.table-cell:not(:last-child) {
+    border-right: 1px solid #ddd;
+}
+
+.table-header-cell.sorted-asc::after {
+    content: " ↑";
+}
+
+.table-header-cell.sorted-desc::after {
+    content: " ↓";
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.table-row {
+    display: grid;
+    height: 100px;
+    grid-template-columns: repeat(13, 1fr);
+    /* Используйте то же количество колонок */
+    gap: 0;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 400px;
+}
+
+.loading-container p {
+    margin-top: 1rem;
+}
+
+.table-header-cell.indiv-number {
+    min-width: 100px;
+    /* Или другое значение, чтобы столбец был немного шире */
+}
+
+.table-cell.indiv-number {
+    min-width: 100px;
+    /* Или другое значение, чтобы столбец был немного шире */
+}
+
+
+/* Установите ширину для заголовка и ячейки первого столбца */
+.table-header-cell.first-column {
+    min-width: 110px;
+}
+
+
+
+@media (max-width: 2180px) {
+    .table-header-cell.first-column {
+        min-width: 90px;
+    }
+}
+
+@media (max-width: 1700px) {
+    .table-header-cell.first-column {
+        min-width: 80px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .table-header-cell.first-column {
+        min-width: 70px;
+    }
+}
+
+@media (max-width: 900px) {
+    .table-header-cell.first-column {
+        min-width: 60px;
+    }
+}

@@ -1,0 +1,179 @@
+/* Контейнер для двух таблиц */
+.tables-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    max-width: 100%;
+    overflow-x: auto; /* Горизонтальная прокрутка для контейнера таблиц */
+    padding: 10px;
+  }
+  
+  /* Контейнер для каждой таблицы */
+  .table-container {
+    width: 100%;
+    flex: 1;
+    overflow-x: auto; /* Горизонтальная прокрутка для каждой таблицы */
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  /* Стилизация таблицы */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px; /* Уменьшенный размер шрифта */
+  }
+  
+  /* Заголовки */
+  th {
+    background-color: #e0e0e0;
+    padding: 4px;
+    text-align: left;
+    font-weight: bold;
+    border: 1px solid black;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  
+  /* Ячейки таблицы */
+  td {
+    padding: 4px;
+    border: 1px solid black;
+    text-align: left;
+    white-space: nowrap;
+  }
+  
+  /* Полосы "зебра" */
+  tbody tr:nth-child(odd) td {
+    background-color: #f9f9f9;
+  }
+  
+  tbody tr:nth-child(even) td {
+    background-color: #f4f4f4;
+  }
+  
+  /* Ховер эффекты */
+  tbody tr:hover td {
+    background-color: #eaeaea;
+  }
+  
+  th:hover {
+    background-color: #d3d3d3;
+  }
+  
+  /* Плавные переходы */
+  th, td {
+    transition: background-color 0.3s ease, width 0.3s ease;
+  }
+  
+  /* Перетаскивание для изменения размера */
+  .resizer {
+    display: inline-block;
+    width: 5px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: col-resize;
+    z-index: 1;
+  }
+  
+  .resizer:hover {
+    background-color: #aaa;
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 600px) {
+    th, td {
+      font-size: 8px;
+      padding: 2px;
+    }
+  }
+
+
+  @keyframes loading-dots {
+    0% {
+        content: '.';
+    }
+    33% {
+        content: '..';
+    }
+    66% {
+        content: '...';
+    }
+    100% {
+        content: '';
+    }
+}
+
+.loading-text::after {
+    content: '';
+    animation: loading-dots 1s steps(3, end) infinite;
+}
+
+.delete-button {
+  background-color: transparent;
+  border: none;
+  color: #d9534f; /* Красный цвет для иконки */
+  cursor: pointer;
+  padding: 0;
+  font-size: 16px; /* Размер иконки */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-button:hover {
+  color: #c9302c; /* Более темный красный при наведении */
+}
+/*--------------------------------------------------------------------------------------*/
+
+.close-modal-button {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-modal-button:hover {
+  color: #d9534f; /* Красный цвет при наведении */
+}
+
+.check-inbreeding-button:disabled::after {
+  content: '';
+  display: inline-block;
+  animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0,0,0,0);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);
+  }
+  40% {
+    color: black;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);
+  }
+  60% {
+    text-shadow:
+      .25em 0 0 black,
+      .5em 0 0 rgba(0,0,0,0);
+  }
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 black,
+      .5em 0 0 black;
+  }
+}
