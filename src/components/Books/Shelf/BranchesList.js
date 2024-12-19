@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Typography, List, ListItem, TextField, ListItemText, Paper } from '@mui/material';
+import { Box, Button, Typography, List, ListItem, TextField, ListItemText, Paper, CircularProgress } from '@mui/material';
 import axiosInstance from '../../../axiosConfig';
 import { useNavigate } from 'react-router-dom';
 const apiUrl = process.env.REACT_APP_API_URL
 const BranchesList = () => {
+    const [loading, setLoading] = useState(false);
     const [branches, setBranches] = useState([]);
     const [search, setSearch] = useState(''); // Поле для поиска по названию
     const navigate = useNavigate();
@@ -14,8 +15,10 @@ const BranchesList = () => {
 
     const fetchBranches = async () => {
         try {
+            setLoading(true)
             const response = await axiosInstance.get(`${apiUrl}/api/v1/branches-book`);
             setBranches(response.data);
+            setLoading(false)
         } catch (error) {
             console.error('Ошибка при получении линий:', error);
         }
@@ -45,7 +48,12 @@ const BranchesList = () => {
                     onChange={(e) => setSearch(e.target.value)}
                     sx={{ mb: 2 }}
                 />
-
+                {loading && (
+                    <div style={{ textAlign: 'center' }}>
+                        <Typography variant="h6">Загрузка ...</Typography>
+                        <CircularProgress />
+                    </div>
+                )}
                 <List>
                     {filteredBranches.map(branch => (
                         <ListItem key={branch.branch_code}>

@@ -103,6 +103,16 @@
     .table-header-cell.first-column {
         min-width: 80px;
     }
+    .table-header-cell.indiv-number {
+        min-width: 80px;
+        max-width: 80px;
+        /* Или другое значение, чтобы столбец был немного шире */
+    }
+    .table-header-cell.kompleks-bull {
+        min-width: 40px;
+        max-width: 40px;
+        /* Установите нужную ширину */
+    }
 }
 
 @media (max-width: 1400px) {

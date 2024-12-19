@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Typography, List, ListItem, TextField, ListItemText, Paper } from '@mui/material';
+import { Box, Button, Typography, List, ListItem, TextField, ListItemText, Paper,CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../../axiosConfig';
 const apiUrl = process.env.REACT_APP_API_URL
 const BreedsList = () => {
+     const [loading, setLoading] = useState(false);
     const [breeds, setBreeds] = useState([]);
     const [search, setSearch] = useState(''); // Поле для поиска по названию породы
     const navigate = useNavigate();
@@ -14,8 +15,10 @@ const BreedsList = () => {
 
     const fetchBreeds = async () => {
         try {
+            setLoading(true)
             const response = await axiosInstance.get(`${apiUrl}/api/v1/breeds-book`);
             setBreeds(response.data);
+            setLoading(false)
         } catch (error) {
             console.error('Ошибка при получении пород:', error);
         }
@@ -45,7 +48,12 @@ const BreedsList = () => {
                     onChange={(e) => setSearch(e.target.value)}
                     sx={{ mb: 2 }}
                 />
-
+                {loading && (
+                    <div style={{ textAlign: 'center' }}>
+                        <Typography variant="h6">Загрузка ...</Typography>
+                        <CircularProgress />
+                    </div>
+                )}
                 <List>
                     {filteredBreeds.map(breed => (
                         <ListItem key={breed.breed_code}>

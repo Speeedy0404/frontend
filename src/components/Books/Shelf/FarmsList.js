@@ -21,7 +21,6 @@ const FarmsList = () => {
             setLoading(true)
             const response = await axiosInstance.get(`${apiUrl}/api/v1/farms-book`, { params: filters });
             setFarms(response.data);
-            console.log(response.data)
             setLoading(false)
         } catch (error) {
             console.error('Ошибка при получении ферм:', error);

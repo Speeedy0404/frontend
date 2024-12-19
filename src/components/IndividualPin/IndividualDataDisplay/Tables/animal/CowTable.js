@@ -299,13 +299,13 @@ const CowTable = ({ key, kodrn, dataCow, onSelectedChange, onParamChange }) => {
         { Header: 'Номер', accessor: 'uniq_key', className: 'indiv-number-cow' },
         { Header: 'Д.р.', accessor: 'datarojd', className: 'data' },
         { Header: 'К.О', accessor: d => d.father_info.kompleks || '', id: 'kompleks', className: 'kompleks' },
-        { Header: `RM (${avg.milk ? getValue_OrDefault(avg.milk.avg_rm) : '-'})`, accessor: d => d.milkproductionindex ? getValue_OrDefault(d.milkproductionindex.rm) : '', id: 'rm' , className: 'RM' },
-        { Header: `RBVT (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvt) : '-'})`, accessor: d => d.conformationindex ? getValue_OrDefault(d.conformationindex.rbvt) : '', id: 'rbvt' },
-        { Header: `RBVF (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvf) : '-'})`, accessor: d => d.conformationindex ? getValue_OrDefault(d.conformationindex.rbvf) : '', id: 'rbvf' },
-        { Header: `RBVU (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvu) : '-'})`, accessor: d => d.conformationindex ? getValue_OrDefault(d.conformationindex.rbvu) : '', id: 'rbvu', className: 'RBVU'  },
-        { Header: `RC (${avg.conf ? getValue_OrDefault(avg.conf.avg_rc) : '-'})`, accessor: d => d.conformationindex ? getValue_OrDefault(d.conformationindex.rc) : '', id: 'rc' },
-        { Header: `RF (${avg.reprod ? getValue_OrDefault(avg.reprod.avg_rf) : '-'})`, accessor: d => d.reproductionindex ? getValue_OrDefault(d.reproductionindex.rf) : '', id: 'rf' },
-        { Header: `PI (${avg.com ? getValue_OrDefault(avg.com.avg_pi) : '-'})`, accessor: d => d.complexindex ? getValue_OrDefault(d.complexindex.pi) : '', id: 'pi' },
+        { Header: `RM (${avg.milk ? getValue_OrDefault(avg.milk.avg_rm) : '-'})`, accessor: d => d.milkproductionindex ? getValue_OrDefault(d.milkproductionindex.rm) : '', id: 'rm', className: 'RM' },
+        { Header: `RBVT (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvt) : '-'})`, accessor: d => d.conformationindex ? getValue_OrDefault(d.conformationindex.rbvt) : '', id: 'rbvt', className: 'RBVT' },
+        { Header: `RBVF (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvf) : '-'})`, accessor: d => d.conformationindex ? getValue_OrDefault(d.conformationindex.rbvf) : '', id: 'rbvf', className: 'RBVF' },
+        { Header: `RBVU (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvu) : '-'})`, accessor: d => d.conformationindex ? getValue_OrDefault(d.conformationindex.rbvu) : '', id: 'rbvu', className: 'RBVU' },
+        { Header: `RC (${avg.conf ? getValue_OrDefault(avg.conf.avg_rc) : '-'})`, accessor: d => d.conformationindex ? getValue_OrDefault(d.conformationindex.rc) : '', id: 'rc', className: 'RC' },
+        { Header: `RF (${avg.reprod ? getValue_OrDefault(avg.reprod.avg_rf) : '-'})`, accessor: d => d.reproductionindex ? getValue_OrDefault(d.reproductionindex.rf) : '', id: 'rf', className: 'RF' },
+        { Header: `PI (${avg.com ? getValue_OrDefault(avg.com.avg_pi) : '-'})`, accessor: d => d.complexindex ? getValue_OrDefault(d.complexindex.pi) : '', id: 'pi', className: 'PI' },
     ], [selectedCows, avg]);
 
     const { getTableBodyProps, getTableProps, headerGroups, rows, prepareRow } = useTable(
@@ -428,8 +428,8 @@ const CowTable = ({ key, kodrn, dataCow, onSelectedChange, onParamChange }) => {
                             <Button onClick={handleSelectBulls} variant="contained" style={{ marginBottom: '5px', width: '200px' }}>
                                 Подобрать быков
                             </Button>
-                            <Button onClick={handleDeleteFilters} variant="contained" style={{ marginBottom: '5px', width: '200px' }}>
-                                Сбросить фильтры
+                            <Button onClick={handleDeleteFilters} variant="contained" style={{ marginBottom: '5px', width: '210px' }}>
+                                Сбросить Фильтры
                             </Button>
                         </div>
 

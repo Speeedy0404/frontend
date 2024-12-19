@@ -22,10 +22,8 @@ const Login = ({ setToken }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(''); // Сбросить предыдущее сообщение об ошибке
-    console.log('API URL:', apiUrl); // Должен вывести https://918b-57-129-1-102.ngrok-free.app
 
     try {
-      console.log(apiUrl)
       const response = await axios.post(`${apiUrl}/auth/token/login/`, {
         username,
         password,
