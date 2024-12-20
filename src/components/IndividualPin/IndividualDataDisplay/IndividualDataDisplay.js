@@ -404,7 +404,7 @@ const IndividualDataDisplay = () => {
 
             setPdfName(result.pdf_filename)
 
-            const pdfResponse = await fetch(`${apiUrl}/api/v1/get-pdf-report/${result.pdf_filename}`, {
+            const pdfResponse = await fetch(`${apiUrl}/api/v1/get-report/${result.pdf_filename}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Token ${localStorage.getItem('authToken')}`,
@@ -523,7 +523,7 @@ const IndividualDataDisplay = () => {
 
             setPdfName(result.pdf_filename)
 
-            const pdfResponse = await fetch(`${apiUrl}/api/v1/get-pdf-report/${result.pdf_filename}`, {
+            const pdfResponse = await fetch(`${apiUrl}/api/v1/get-report/${result.pdf_filename}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Token ${localStorage.getItem('authToken')}`,
@@ -632,7 +632,7 @@ const IndividualDataDisplay = () => {
 
             setPdfName(result.pdf_filename)
 
-            const pdfResponse = await fetch(`${apiUrl}/api/v1/get-pdf-report/${result.pdf_filename}`, {
+            const pdfResponse = await fetch(`${apiUrl}/api/v1/get-report/${result.pdf_filename}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Token ${localStorage.getItem('authToken')}`,

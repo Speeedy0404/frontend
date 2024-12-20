@@ -14,10 +14,12 @@ import {
   Paper,
   TextField
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PreviewIcon from '@mui/icons-material/Preview';
 import DownloadIcon from '@mui/icons-material/Download';
 import PrintIcon from '@mui/icons-material/Print';
+import * as XLSX from 'xlsx';
 
 const Reports = () => {
   const [farms, setFarms] = useState([]);
@@ -54,24 +56,44 @@ const Reports = () => {
   // Функция для предпросмотра отчета
   const handlePreview = async (report) => {
     try {
-      const response = await axiosInstance.get(`get-pdf-report/${report}`, {
+      const response = await axiosInstance.get(`get-report/${report}.pdf`, {
         responseType: 'blob', // Expecting a blob
       });
-  
+
       const file = new Blob([response.data], { type: 'application/pdf' });
       const fileURL = window.URL.createObjectURL(file);
-  
+
       // Open the PDF in a new tab
       window.open(fileURL, '_blank');
     } catch (error) {
       console.error('Ошибка при предпросмотре отчета:', error);
     }
   };
-  
+
+  // const handlePreview = async (report) => {
+  //   try {
+  //     const response = await axiosInstance.get(`get-pdf-report/${report}`, {
+  //       responseType: 'arraybuffer',
+  //     });
+
+  //     const data = new Uint8Array(response.data);
+  //     const workbook = XLSX.read(data, { type: 'array' });
+  //     const sheetName = workbook.SheetNames[0];
+  //     const sheet = workbook.Sheets[sheetName];
+
+  //     // Преобразование в HTML
+  //     const html = XLSX.utils.sheet_to_html(sheet);
+  //     const previewWindow = window.open('', '_blank');
+  //     previewWindow.document.write(html);
+  //   } catch (error) {
+  //     console.error('Ошибка при предпросмотре отчета:', error);
+  //   }
+  // };
+
   // Функция для скачивания отчета
   const handleDownload = async (report) => {
     try {
-      const response = await axiosInstance.get(`get-pdf-report/${report}`, {
+      const response = await axiosInstance.get(`get-report/${report}.pdf`, {
         responseType: 'blob' // Получаем файл в формате blob
       });
 
@@ -79,7 +101,7 @@ const Reports = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', report); // Указываем имя файла
+      link.setAttribute('download', `${report}.pdf`); // Указываем имя файла
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
@@ -91,13 +113,13 @@ const Reports = () => {
   // Функция для печати отчета
   const handlePrint = async (report) => {
     try {
-      const response = await axiosInstance.get(`get-pdf-report/${report}`, {
+      const response = await axiosInstance.get(`get-report/${report}.pdf`, {
         responseType: 'blob', // Expecting a blob
       });
-  
+
       const file = new Blob([response.data], { type: 'application/pdf' });
       const fileURL = window.URL.createObjectURL(file);
-  
+
       // Open the PDF in a new tab for printing
       const printWindow = window.open(fileURL, '_blank');
       printWindow.onload = () => {
@@ -107,7 +129,66 @@ const Reports = () => {
       console.error('Ошибка при печати отчета:', error);
     }
   };
-  
+
+  // Функция для скачивания отчета
+  const handleDownloadExcel = async (report) => {
+    try {
+      const response = await axiosInstance.get(`get-report/${report}.xlsx`, {
+        responseType: 'blob' // Получаем файл в формате blob
+      });
+
+      // Создаем URL для скачивания
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${report}.xlsx`); // Указываем имя файла
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error('Ошибка при скачивании отчета:', error);
+    }
+  };
+
+  const handlePreviewExcel = async (report) => {
+    console.log(report)
+    try {
+      const response = await axiosInstance.get(`get-report/${report}.xlsx`, {
+        responseType: 'arraybuffer',
+      });
+      console.log(response.data)
+      const data = new Uint8Array(response.data);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+
+      // Преобразование в HTML
+      const html = XLSX.utils.sheet_to_html(sheet);
+      const previewWindow = window.open('', '_blank');
+      previewWindow.document.write(html);
+    } catch (error) {
+      console.error('Ошибка при предпросмотре отчета:', error);
+    }
+  };
+
+  const handleDelete = async (path) => {
+    if (window.confirm("Вы уверены, что хотите удалить этот отчёт?")) {
+      try {
+        const response = await axiosInstance.delete(`get-report/${path}.pdf`);
+
+        if (response.data.success) {
+          // Если удаление успешно, обновляем список отчетов
+          setReports((prevReports) => prevReports.filter((report) => report.path !== path));
+        } else {
+          // Если сервер вернул false
+          alert("Нет доступа для удаления отчета.");
+        }
+      } catch (error) {
+        console.error("Ошибка при удалении отчета:", error);
+        alert("Произошла ошибка при удалении отчета.");
+      }
+    }
+  };
 
   // Функция возврата к списку хозяйств
   const handleBack = () => {
@@ -190,23 +271,55 @@ const Reports = () => {
               {reports.length > 0 ? (
                 <List>
                   {reports.map((report) => (
-                    <Card key={report} variant="outlined" sx={{ mb: 2 }}>
-                      <CardContent>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>{report}</Typography>
+                    <Card key={report.id} variant="outlined" sx={{ mb: 2, display: 'flex', flexDirection: 'row', alignItems: 'center', p: 2 }}>
+                      <CardContent sx={{ flexGrow: 1 }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                          {report.title}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
+                          Автор: {report.user_name} | Дата создания: {isNaN(new Date(report.created_at)) ? 'Invalid Date' : new Date(report.created_at).toLocaleDateString()}
+                        </Typography>
                       </CardContent>
-                      <CardActions>
-                        <IconButton onClick={() => handlePreview(report)} color="primary">
-                          <PreviewIcon />
+
+                      <Box sx={{ textAlign: 'center', mx: 2 }}>
+                        <Typography variant="body2" sx={{ bgcolor: 'grey.200', p: 0.5, borderRadius: '4px' }}>
+                          PDF
+                        </Typography>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
+                          <IconButton onClick={() => handlePreview(report.path)} color="primary">
+                            <PreviewIcon />
+                          </IconButton>
+                          <IconButton onClick={() => handleDownload(report.path)} color="secondary">
+                            <DownloadIcon />
+                          </IconButton>
+                          <IconButton onClick={() => handlePrint(report.path)} color="default">
+                            <PrintIcon />
+                          </IconButton>
+                        </Box>
+                      </Box>
+
+                      <Box sx={{ textAlign: 'center', mx: 2 }}>
+                        <Typography variant="body2" sx={{ bgcolor: 'grey.200', p: 0.5, borderRadius: '4px' }}>
+                          XLSX
+                        </Typography>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
+                          <IconButton onClick={() => handlePreviewExcel(report.path)} color="primary">
+                            <PreviewIcon />
+                          </IconButton>
+                          <IconButton onClick={() => handleDownloadExcel(report.path)} color="secondary">
+                            <DownloadIcon />
+                          </IconButton>
+                        </Box>
+                      </Box>
+
+                      <Box sx={{ textAlign: 'center', mx: 2 }}>
+                        <IconButton onClick={() => handleDelete(report.path)} color="error">
+                          <DeleteIcon />
                         </IconButton>
-                        <IconButton onClick={() => handleDownload(report)} color="secondary">
-                          <DownloadIcon />
-                        </IconButton>
-                        <IconButton onClick={() => handlePrint(report)} color="default">
-                          <PrintIcon />
-                        </IconButton>
-                      </CardActions>
+                      </Box>
                     </Card>
                   ))}
+
                 </List>
               ) : (
                 <Typography variant="body1" align="center" sx={{ mt: 4 }}>
