@@ -54,7 +54,7 @@ const keyMapping = {
     "Ширина задней части вымени": "rbv_szcv",
 };
 const apiUrl = process.env.REACT_APP_API_URL
-const CowTable = ({ key, kodrn, dataCow, onSelectedChange, onParamChange }) => {
+const CowTable = ({ key, kodrn, dataCow, onSelectedChange, selectedCowsMain, onParamChange }) => {
     const [data, setData] = useState([]);
     const [count, setCount] = useState(null)
     const [avg, setAvg] = useState([])
@@ -77,6 +77,12 @@ const CowTable = ({ key, kodrn, dataCow, onSelectedChange, onParamChange }) => {
     useEffect(() => {
         fetchData();
     }, [dataCow, key]);
+
+    useEffect(() => {
+        if (JSON.stringify(selectedCowsMain) !== JSON.stringify(selectedCows)) {
+            setSelectedCows(selectedCowsMain);
+        }
+    }, [selectedCowsMain]);
 
     useEffect(() => {
         // При изменении selectedIndivNumber, проверяем, есть ли сохраненные данные для этой коровы

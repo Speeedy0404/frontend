@@ -4,7 +4,7 @@ import { VariableSizeList as List } from 'react-window';
 import { Checkbox, CircularProgress, Button, Typography, TextField } from '@mui/material';
 
 const apiUrl = process.env.REACT_APP_API_URL
-const YoungTable = ({ key, kodrn, dataYoung, onSelectedChange }) => {
+const YoungTable = ({ key, kodrn, dataYoung, selectedYoungMain, onSelectedChange }) => {
     const [data, setData] = useState([]);
     const [count, setCount] = useState(null)
 
@@ -18,6 +18,12 @@ const YoungTable = ({ key, kodrn, dataYoung, onSelectedChange }) => {
     useEffect(() => {
         fetchData();
     }, [dataYoung, key]);
+
+    useEffect(() => {
+        if (JSON.stringify(selectedYoungMain) !== JSON.stringify(selectedYoung)) {
+            setSelectedYoung(selectedYoungMain);
+        }
+    }, [selectedYoungMain]);
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -107,7 +113,7 @@ const YoungTable = ({ key, kodrn, dataYoung, onSelectedChange }) => {
         },
         { Header: 'Номер', accessor: 'uniq_key', className: 'indiv-number' },
         { Header: 'Д.р.', accessor: 'datarojd' },
-        { Header: 'К.О', accessor: d => d.father_info.kompleks || '', id: 'kompleks' }, 
+        { Header: 'К.О', accessor: d => d.father_info.kompleks || '', id: 'kompleks' },
         { Header: 'Линия', accessor: d => d.father_info.lin_name || '', id: 'lin_name' },
     ], [selectedYoung]);
 
@@ -164,7 +170,7 @@ const YoungTable = ({ key, kodrn, dataYoung, onSelectedChange }) => {
                     </div>
                 ) : (
                     <>
-                    
+
                         <div style={{ display: 'flex', alignItems: 'center', padding: '5px', flexDirection: 'row', gap: '10px', marginTop: '10px' }}>
                             <TextField
                                 label="Поиск по номеру"

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useTable, useSortBy } from 'react-table';
 import { VariableSizeList as List } from 'react-window';
-import { Modal, Box, IconButton, Checkbox, Typography, CircularProgress } from '@mui/material';
+import { Modal, Box, IconButton, Checkbox, Typography, CircularProgress, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Animal from '../../../../Animal/Animal';
 import './BullTable.css';
@@ -15,6 +15,7 @@ const BullTable = ({ key, gpp, dataBull, additionalParam, onSelectedChange }) =>
     const [selectedIndivNumber, setSelectedIndivNumber] = useState(null);
     const [selectedBulls, setSelectedBulls] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const getValue_OrDefault = (value) => (value !== undefined && value !== null ? value.toFixed(0) : '');
 
@@ -65,6 +66,11 @@ const BullTable = ({ key, gpp, dataBull, additionalParam, onSelectedChange }) =>
         setSelectedIndivNumber(null);
     };
 
+    // Обработка изменения поля поиска
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
     const handleSelectBull = (uniq_key) => {
         setSelectedBulls((prevSelected) => {
             let newSelected;
@@ -84,6 +90,15 @@ const BullTable = ({ key, gpp, dataBull, additionalParam, onSelectedChange }) =>
         });
     };
 
+    // Фильтруем данные по введенному номеру
+    const filteredData = useMemo(() => {
+        if (searchQuery) {
+            return data.filter(bull => bull.nomer.toString().includes(searchQuery));
+        }
+        return data;
+    }, [searchQuery, data]);
+
+
     const columns = useMemo(() => [
         {
             Header: '',
@@ -99,20 +114,20 @@ const BullTable = ({ key, gpp, dataBull, additionalParam, onSelectedChange }) =>
         },
         { Header: 'Раб №', accessor: 'nomer', className: 'nomer' },
         { Header: 'Номер', accessor: 'uniq_key', className: 'indiv-number' },
-        { Header: 'Д.р.', accessor: 'datarojd' , className: 'datarojd' },
+        { Header: 'Д.р.', accessor: 'datarojd', className: 'datarojd' },
         { Header: 'Компл.', accessor: 'kompleks', className: 'kompleks-bull' },
-        { Header: 'Семя', accessor: 'sperma', className: 'sperma'  },
+        { Header: 'Семя', accessor: 'sperma', className: 'sperma' },
         { Header: `RM (${avg.milk ? getValue_OrDefault(avg.milk.avg_rm) : '-'})`, accessor: d => d.milkproductionindexbull ? getValue_OrDefault(d.milkproductionindexbull.rm) : '', id: 'rm', className: 'RM' },
-        { Header: `RBVT (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvt) : '-'})`, accessor: d => d.conformationindexbull ? getValue_OrDefault(d.conformationindexbull.rbvt) : '', id: 'rbvt', className: 'RBVT'  },
-        { Header: `RBVF (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvf) : '-'})`, accessor: d => d.conformationindexbull ? getValue_OrDefault(d.conformationindexbull.rbvf) : '', id: 'rbvf', className: 'RBVF'  },
-        { Header: `RBVU (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvu) : '-'})`, accessor: d => d.conformationindexbull ? getValue_OrDefault(d.conformationindexbull.rbvu) : '', id: 'rbvu' , className: 'RBVU'  },
-        { Header: `RC (${avg.conf ? getValue_OrDefault(avg.conf.avg_rc) : '-'})`, accessor: d => d.conformationindexbull ? getValue_OrDefault(d.conformationindexbull.rc) : '', id: 'rc', className: 'RC'  },
-        { Header: `RF (${avg.reprod ? getValue_OrDefault(avg.reprod.avg_rf) : '-'})`, accessor: d => d.reproductionindexbull ? getValue_OrDefault(d.reproductionindexbull.rf) : '', id: 'rf' , className: 'RF' },
-        { Header: `PI (${avg.com ? getValue_OrDefault(avg.com.avg_pi) : '-'})`, accessor: d => d.complexindexbull ? getValue_OrDefault(d.complexindexbull.pi) : '', id: 'pi', className: 'PI'  },
+        { Header: `RBVT (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvt) : '-'})`, accessor: d => d.conformationindexbull ? getValue_OrDefault(d.conformationindexbull.rbvt) : '', id: 'rbvt', className: 'RBVT' },
+        { Header: `RBVF (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvf) : '-'})`, accessor: d => d.conformationindexbull ? getValue_OrDefault(d.conformationindexbull.rbvf) : '', id: 'rbvf', className: 'RBVF' },
+        { Header: `RBVU (${avg.conf ? getValue_OrDefault(avg.conf.avg_rbvu) : '-'})`, accessor: d => d.conformationindexbull ? getValue_OrDefault(d.conformationindexbull.rbvu) : '', id: 'rbvu', className: 'RBVU' },
+        { Header: `RC (${avg.conf ? getValue_OrDefault(avg.conf.avg_rc) : '-'})`, accessor: d => d.conformationindexbull ? getValue_OrDefault(d.conformationindexbull.rc) : '', id: 'rc', className: 'RC' },
+        { Header: `RF (${avg.reprod ? getValue_OrDefault(avg.reprod.avg_rf) : '-'})`, accessor: d => d.reproductionindexbull ? getValue_OrDefault(d.reproductionindexbull.rf) : '', id: 'rf', className: 'RF' },
+        { Header: `PI (${avg.com ? getValue_OrDefault(avg.com.avg_pi) : '-'})`, accessor: d => d.complexindexbull ? getValue_OrDefault(d.complexindexbull.pi) : '', id: 'pi', className: 'PI' },
     ], [selectedBulls, avg]);
 
     const { getTableBodyProps, getTableProps, headerGroups, rows, prepareRow } = useTable(
-        { columns, data },
+        { columns, data: filteredData },
         useSortBy
     );
 
@@ -133,7 +148,7 @@ const BullTable = ({ key, gpp, dataBull, additionalParam, onSelectedChange }) =>
                 headerCell.style.width = `${maxWidth}px`;
             });
         }
-    }, [data]);
+    }, [filteredData]);
 
     const Row = useCallback(({ index, style }) => {
         const row = rows[index];
@@ -159,6 +174,15 @@ const BullTable = ({ key, gpp, dataBull, additionalParam, onSelectedChange }) =>
                     </div>
                 ) : (
                     <>
+                        <div style={{ display: 'flex', alignItems: 'center', padding: '5px', flexDirection: 'row', gap: '10px', marginTop: '10px' }}>
+                            <TextField
+                                label="Поиск по раб.номеру"
+                                variant="outlined"
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                                style={{ width: '300px' }}
+                            />
+                        </div>
                         <Typography variant="h6" style={{ margin: '20px 0' }}>
                             Всего быков: {count}
                         </Typography>

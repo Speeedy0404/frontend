@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import CowTable from './Tables/animal/CowTable';
 import YoungTable from './Tables/animal/YoungTable';
@@ -32,6 +33,8 @@ import {
     DialogTitle,
     DialogContent,
     IconButton,
+    RadioGroup,
+    Radio,
 } from '@mui/material';
 
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -152,11 +155,32 @@ const IndividualDataDisplay = () => {
 
     const [inbreedingStatus, setInbreedingStatus] = useState(null);
     const [inbredAnimals, setInbredAnimals] = useState([]);
+    const [inbredCount, setInbredCount] = useState([]);
+
     const [loading, setLoading] = useState(false);
     const [pdfLink, setPdfLink] = useState(null);
     const [nameDock, setNameDock] = useState('');
 
     const [modalOpen, setModalOpen] = useState(false);
+
+    const [selectedBullLevel, setSelectedBullLevel] = useState('');
+    const [selectedCowLevel, setSelectedCowLevel] = useState('');
+    const [event, setEvent] = useState(null);
+
+    useEffect(() => {
+        // Если состояние selectedCows изменилось, вызовем handleSubmitconsolidation
+        if (selectedTab !== 'young' && selectedCows.length !== 0 && modalOpen == true) {
+            if (event) {
+                handleSubmitconsolidation(event); // Передаем событие
+                setEvent(null)
+            }
+        } else if (selectedTab === 'young' && selectedYoung.length !== 0 && modalOpen == true) {
+            if (event) {
+                handleSubmitconsolidation(event); // Передаем событие
+                setEvent(null)
+            }
+        }
+    }, [selectedCows, selectedYoung]); // Следим за изменениями в этих состояниях
 
     const handleTabChange = (tab) => setSelectedTab(tab);
 
@@ -299,7 +323,6 @@ const IndividualDataDisplay = () => {
 
     const handleSubmitYoung = (event) => {
         event.preventDefault();
-        console.log(paramYoung)
         setdataYoung(paramYoung);
     }
 
@@ -398,26 +421,9 @@ const IndividualDataDisplay = () => {
             } else {
                 setInbreedingStatus('error');
                 setInbredAnimals(result.inbred_animals);
+                setInbredCount(result.count_unique_cows)
                 setLoading(false);
-                return;
             }
-
-            setPdfName(result.pdf_filename)
-
-            const pdfResponse = await fetch(`${apiUrl}/api/v1/get-report/${result.pdf_filename}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Token ${localStorage.getItem('authToken')}`,
-                },
-            });
-
-            if (!pdfResponse.ok) {
-                throw new Error('Ошибка при загрузке PDF файла');
-            }
-
-            const blob = await pdfResponse.blob();
-            const pdfURL = window.URL.createObjectURL(blob);
-            setPdfLink(pdfURL);  // Устанавливаем ссылку для скачивания PDF
 
             setLoading(false);
 
@@ -428,19 +434,166 @@ const IndividualDataDisplay = () => {
         }
     };
 
+    const handleBullLevelChange = (event) => {
+        setSelectedBullLevel(event.target.value);
+    };
+
+    const handleCowLevelChange = (event) => {
+        setSelectedCowLevel(event.target.value);
+    };
+
+    const handleApplyExclusion = (event) => {
+        setEvent(event);
+
+        if (selectedTab !== 'young') {
+            const updatedSelectedCows = selectedCows.filter((cow) => {
+                return !inbredAnimals.some((item) => {
+                    return (
+                        item.bull_level === Number(selectedBullLevel) &&
+                        item.cow_level === Number(selectedCowLevel) &&
+                        item.cow === cow
+                    );
+                });
+            });
+            setSelectedCows(updatedSelectedCows)
+        } else {
+            const updatedSelectedCows = selectedYoung.filter((cow) => {
+                return !inbredAnimals.some((item) => {
+                    return (
+                        item.bull_level === Number(selectedBullLevel) &&
+                        item.cow_level === Number(selectedCowLevel) &&
+                        item.cow === cow
+                    );
+                });
+            });
+            setSelectedYoung(updatedSelectedCows)
+        }
+    };
+
     const handleCloseModal = () => {
         setModalOpen(false);  // Закрываем модальное окно
         if (pdfLink !== null) {
             setPdfLink(null);
             setSelectedCows([])
             setSelectedBulls([])
+            setInbredAnimals([])
+            setInbredCount([])
             setReloadTables(!reloadTables);  // Меняем состояние, чтобы вызвать ререндеринг таблиц
+        }
+    };
+
+    const handleConfirmConsolidation = async (event) => {
+        event.preventDefault();
+
+        let payload; // Объявляем payload здесь
+
+        if (selectedTab === 'young') {
+            if (selectedYoung.length === 0) {
+                alert('Вы должны выбрать хотя бы одно животное.');
+                return;
+            }
+
+            if (selectedBulls.length === 0) {
+                alert('Вы должны выбрать хотя бы одного быка.');
+                return;
+            }
+
+            if (selectedBulls.length > 5) {
+                alert('Вы не можете выбрать больше 5 быков.');
+                return;
+            }
+
+            payload = { // Присваиваем значение payload
+                cows: selectedYoung,
+                bulls: selectedBulls,
+                inbred: inbredAnimals,
+                mode: 'young',
+                name: nameDock,
+            };
+        } else {
+            if (selectedCows.length === 0) {
+                alert('Вы должны выбрать хотя бы одну корову.');
+                return;
+            }
+
+            if (selectedBulls.length === 0) {
+                alert('Вы должны выбрать хотя бы одного быка.');
+                return;
+            }
+
+            if (selectedBulls.length > 5) {
+                alert('Вы не можете выбрать больше 5 быков.');
+                return;
+            }
+
+            payload = { // Присваиваем значение payload
+                cows: selectedCows,
+                bulls: selectedBulls,
+                inbred: inbredAnimals,
+                mode: 'cow',
+                name: nameDock,
+            };
+        }
+
+        try {
+            setLoading(true);
+            setModalOpen(true); // Открываем модальное окно при начале проверки
+
+            const response = await fetch(`${apiUrl}/api/v1/submit-consolidation/`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('authToken')}`,
+                    'Content-Type': 'application/json',
+                    'Kodrn': farmCode,
+                    'Mode': 'standard_confirm',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error('Ошибка при проверке инбридинга');
+            }
+
+            if (result.inbreeding_check) {
+                setInbreedingStatus('success_confirm');
+                setPdfName(result.pdf_filename)
+
+                const pdfResponse = await fetch(`${apiUrl}/api/v1/get-report/${result.pdf_filename}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Token ${localStorage.getItem('authToken')}`,
+                    },
+                });
+
+                if (!pdfResponse.ok) {
+                    throw new Error('Ошибка при загрузке PDF файла');
+                }
+
+                const blob = await pdfResponse.blob();
+                const pdfURL = window.URL.createObjectURL(blob);
+                setPdfLink(pdfURL);  // Устанавливаем ссылку для скачивания PDF
+
+                setLoading(false);
+
+            } else {
+                setInbreedingStatus('error');
+                setInbredAnimals(result.inbred_animals);
+                setInbredCount(result.count_unique_cows)
+                setLoading(false);
+            }
+
+        } catch (error) {
+            console.error('Ошибка отправки:', error);
+            alert('Произошла ошибка при отправке данных');
+            setLoading(false);
         }
     };
 
     const handleFixWithoutInbreeding = async (event) => {
         event.preventDefault();
-        
+
         let payload; // Объявляем payload здесь
 
         if (selectedTab === 'young') {
@@ -513,14 +666,14 @@ const IndividualDataDisplay = () => {
             }
 
             if (result.inbreeding_check) {
-                setInbreedingStatus('success');
+                setInbreedingStatus('success_confirm');
             } else {
                 setInbreedingStatus('error');
                 setInbredAnimals(result.inbred_animals);
                 setLoading(false);
                 return;
             }
-
+            setInbreedingStatus('success_confirm');
             setPdfName(result.pdf_filename)
 
             const pdfResponse = await fetch(`${apiUrl}/api/v1/get-report/${result.pdf_filename}`, {
@@ -549,7 +702,7 @@ const IndividualDataDisplay = () => {
 
     const handleFixWithInbreeding = async (event) => {
         event.preventDefault();
-        
+
         let payload; // Объявляем payload здесь
 
         if (selectedTab === 'young') {
@@ -622,14 +775,14 @@ const IndividualDataDisplay = () => {
             }
 
             if (result.inbreeding_check) {
-                setInbreedingStatus('success');
+                setInbreedingStatus('success_confirm');
             } else {
                 setInbreedingStatus('error');
                 setInbredAnimals(result.inbred_animals);
                 setLoading(false);
                 return;
             }
-
+            setInbreedingStatus('success_confirm');
             setPdfName(result.pdf_filename)
 
             const pdfResponse = await fetch(`${apiUrl}/api/v1/get-report/${result.pdf_filename}`, {
@@ -1108,6 +1261,7 @@ const IndividualDataDisplay = () => {
                                 key={`cow-table-${reloadTables}`} // Уникальный ключ для перерисовки
                                 kodrn={farmCode}
                                 dataCow={dataCow}
+                                selectedCowsMain={selectedCows}
                                 onSelectedChange={handleSelectedCowsChange}
                                 onParamChange={handleAdditionalParamChange}
                             />
@@ -1116,6 +1270,7 @@ const IndividualDataDisplay = () => {
                             <YoungTable
                                 key={`young-table-${reloadTables}`} // Уникальный ключ для перерисовки
                                 kodrn={farmCode}
+                                selectedYoungMain={selectedYoung}
                                 dataYoung={dataYoung}
                                 onSelectedChange={handleSelectedYoungChange}
                             />
@@ -1208,6 +1363,22 @@ const IndividualDataDisplay = () => {
                                             Проверка инбридинга пройдена успешно!
                                         </Typography>
                                     </div>
+                                    <div style={{ marginTop: '16px', display: 'flex', gap: '10px' }}>
+                                        <Button variant="contained" color="primary" onClick={handleConfirmConsolidation}>
+                                            Закрепить
+                                        </Button>
+                                    </div>
+                                </div>
+                            )}
+                            {inbreedingStatus === 'success_confirm' && (
+                                <div>
+                                    <div>
+                                        {/* Отображение нужного текста перед успешным сообщением */}
+                                        <Typography variant="h6" style={{ color: 'green' }} >Результа проверки инбридинга: </Typography>
+                                        <Typography variant="body1" style={{ color: 'green' }}>
+                                            Проверка инбридинга пройдена успешно!
+                                        </Typography>
+                                    </div>
                                     {pdfLink && (
                                         <div style={{ marginTop: '16px', display: 'flex', alignItems: 'center' }}>
                                             {/* Иконка файла и название отчета */}
@@ -1225,19 +1396,59 @@ const IndividualDataDisplay = () => {
                                     )}
                                 </div>
                             )}
-
                             {inbreedingStatus === 'error' && (
                                 <div style={{ color: 'red', marginTop: '16px' }}>
                                     <Typography variant="h6">Результаты проверки инбридинга:</Typography>
-                                    <Typography variant="body1">Найдены инбредные животные:</Typography>
+                                    {inbredCount.map((bullData) => (
+                                        <Typography key={bullData.bull} variant="body1" style={{ color: 'black' }}>
+                                            Количество инбредных коров для быка {bullData.bull} - {bullData.inbred_cows_count}
+                                        </Typography>
+                                    ))}
+
+                                    <Typography variant="h6" style={{ color: 'black' }} > Исключить коров с неподходящим уровнем инбридинга </Typography>
+                                    {/* Радио кнопки для выбора уровня быка и коровы, размещенные в строку */}
+                                    <div style={{ marginTop: '5px' }}>
+                                        <Typography variant="body1" style={{ color: 'black' }}>Выберите уровень быка:</Typography>
+                                        <RadioGroup
+                                            value={selectedBullLevel}
+                                            onChange={handleBullLevelChange}
+                                            row  // Располагаем элементы в строку
+                                            style={{ display: 'flex', gap: '16px', color: 'black' }}  // Добавляем пространство между радио кнопками
+                                        >
+                                            <FormControlLabel value="2" control={<Radio />} label="2" />
+                                            <FormControlLabel value="3" control={<Radio />} label="3" />
+                                            <FormControlLabel value="4" control={<Radio />} label="4" />
+                                        </RadioGroup>
+
+                                        <Typography variant="body1" style={{ color: 'black' }}>Выберите уровень коровы:</Typography>
+                                        <RadioGroup
+                                            value={selectedCowLevel}
+                                            onChange={handleCowLevelChange}
+                                            row  // Располагаем элементы в строку
+                                            style={{ display: 'flex', gap: '16px', color: 'black' }}  // Добавляем пространство между радио кнопками
+                                        >
+                                            <FormControlLabel value="2" control={<Radio />} label="2" />
+                                            <FormControlLabel value="3" control={<Radio />} label="3" />
+                                            <FormControlLabel value="4" control={<Radio />} label="4" />
+                                        </RadioGroup>
+                                    </div>
+
+                                    <div style={{ marginTop: '16px', display: 'flex', gap: '10px' }}>
+                                        <Button variant="contained" color="primary" onClick={handleApplyExclusion}>
+                                            Применить исключение
+                                        </Button>
+                                    </div>
+
                                     <TableContainer component={Paper} style={{ marginTop: '16px', maxHeight: '400px', overflowY: 'auto' }}>
                                         <Table>
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell>Бык</TableCell>
+                                                    <TableCell>Раб.номер</TableCell>
+                                                    <TableCell>Кличка</TableCell>
+                                                    <TableCell>Уровень предка быка</TableCell>
                                                     <TableCell>Корова</TableCell>
-                                                    <TableCell>Уровень Быка</TableCell>
-                                                    <TableCell>Уровень Коровы</TableCell>
+                                                    <TableCell>Уровень предка коровы</TableCell>
                                                     <TableCell>Общие Предки</TableCell>
                                                 </TableRow>
                                             </TableHead>
@@ -1245,8 +1456,10 @@ const IndividualDataDisplay = () => {
                                                 {inbredAnimals.map((item, index) => (
                                                     <TableRow key={index}>
                                                         <TableCell>{item.bull}</TableCell>
-                                                        <TableCell>{item.cow}</TableCell>
+                                                        <TableCell>{item.nomer}</TableCell>
+                                                        <TableCell>{item.klichka}</TableCell>
                                                         <TableCell>{item.bull_level}</TableCell>
+                                                        <TableCell>{item.cow}</TableCell>
                                                         <TableCell>{item.cow_level}</TableCell>
                                                         <TableCell>
                                                             {item.common_ancestors.join(', ')}
