@@ -1477,6 +1477,9 @@ const IndividualDataDisplay = () => {
                                         <Button variant="contained" color="secondary" onClick={handleFixWithInbreeding}>
                                             Закрепить с инбредностью
                                         </Button>
+                                        <Button variant="contained" color="primary" onClick={handleCloseModal}>
+                                            Закрыть
+                                        </Button>
                                     </div>
                                 </div>
                             )}

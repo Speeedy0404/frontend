@@ -96,12 +96,12 @@ const RelativeBreedingValueTable = ({ data }) => {
                     </tr>
                     <tr>
                         <td>Rscs</td>
-                        <td>{data.scs.count_scs || '-'}</td>
-                        <td>{getValueOrDefault(data.scs.avg_scs)}</td>
-                        <td>{getValueOrDefault(data.scs.min_scs)}</td>
-                        <td>{getValueOrDefault(data.scs.max_scs)}</td>
-                        <td>{getValueOrDefault(data.scs.stddev_scs)}</td>
-                        <td>{getValueOrDefault(data.median_scs.median_scs)}</td>
+                        <td>{data.scs.count_rscs || '-'}</td>
+                        <td>{getValueOrDefault(data.scs.avg_rscs)}</td>
+                        <td>{getValueOrDefault(data.scs.min_rscs)}</td>
+                        <td>{getValueOrDefault(data.scs.max_rscs)}</td>
+                        <td>{getValueOrDefault(data.scs.stddev_rscs)}</td>
+                        <td>{getValueOrDefault(data.median_scs.median_rscs)}</td>
                     </tr>
                     <tr>
                         <td>PI</td>
