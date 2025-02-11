@@ -54,7 +54,7 @@ const IndividualPin = () => {
         }
     }, [farmCode, farmName, fetchFarmSuggestions]);
 
-  
+
     const handleFarmSelect = (farm) => {
         setFarmName(farm.norg);
         setFarmCode(farm.korg);
@@ -74,13 +74,14 @@ const IndividualPin = () => {
                 farmName,
                 farmCode,
             });
-           
+
             navigate('/data-display-individual', {
                 state: {
                     farmName: farmName,
                     farmCode: farmCode,
                     aggregatedData: response.data.aggregated_data,
                     density_data: response.data.density_data,
+                    parameterForecastingData: response.data.parameter_forecasting,
                 }
             });
 

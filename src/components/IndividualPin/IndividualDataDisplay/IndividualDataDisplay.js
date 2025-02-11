@@ -8,6 +8,7 @@ import BullTable from './Tables/animal/BullTable';
 import LakTable from './Tables/LakTable';
 import MilkTable from './Tables/MilkTable';
 import RelativeBreedingValueTable from './Tables/RelativeBreedingValueTable';
+import ParameterForecastingTable from './Tables/ParameterForecastingTable';
 import DensityChart from './DensityChart/DensityChart';
 
 import {
@@ -57,9 +58,9 @@ const options = [
 
 const IndividualDataDisplay = () => {
     const location = useLocation();
-    const { farmName, farmCode, aggregatedData, density_data } = location.state || {};
-    const [selectedTab, setSelectedTab] = useState('filter'); // Стейт для хранения выбранной вкладки
-
+    const { farmName, farmCode, aggregatedData, parameterForecastingData, density_data } = location.state || {};
+    const [selectedTab, setSelectedTab] = useState('info'); // Стейт для хранения выбранной вкладки
+    const [parameterData, setParameterForecastingData] = useState(parameterForecastingData);
 
     const [filterValues, setFilterValues] = useState({
         selectedGpp: [],
@@ -430,6 +431,41 @@ const IndividualDataDisplay = () => {
         } catch (error) {
             console.error('Ошибка отправки:', error);
             alert('Произошла ошибка при отправке данных');
+            setLoading(false);
+        }
+    };
+
+    const handleParameterForecasting = async (event) => {
+        event.preventDefault();
+
+        try {
+            setLoading(true);
+
+            const response = await fetch(`${apiUrl}/api/v1/parameter-forecasting/`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('authToken')}`,
+                    'Content-Type': 'application/json',
+                    'Kodrn': farmCode,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка при прогнозировании');
+            }
+
+            const data = await response.json();
+
+            if (data.parameter_forecasting) {
+                setParameterForecastingData(data.parameter_forecasting);
+            } else {
+                console.log('Похоже, не удалось получить прогноз');
+            }
+
+        } catch (error) {
+            console.error('Ошибка отправки:', error);
+            alert('Произошла ошибка при отправке данных');
+        } finally {
             setLoading(false);
         }
     };
@@ -819,11 +855,11 @@ const IndividualDataDisplay = () => {
                         <h3>{farmName}</h3>
 
                         <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-                            <Button variant={selectedTab === 'filter' ? 'contained' : 'outlined'} onClick={() => handleTabChange('filter')}>
-                                Фильтр
-                            </Button>
                             <Button variant={selectedTab === 'info' ? 'contained' : 'outlined'} onClick={() => handleTabChange('info')}>
                                 Информация о хозяйстве
+                            </Button>
+                            <Button variant={selectedTab === 'filter' ? 'contained' : 'outlined'} onClick={() => handleTabChange('filter')}>
+                                Коровы
                             </Button>
                             <Button variant={selectedTab === 'young' ? 'contained' : 'outlined'} onClick={() => handleTabChange('young')}>
                                 Молодняк
@@ -1032,7 +1068,9 @@ const IndividualDataDisplay = () => {
                     </div>
 
                     <div className="info-item gpp-info">
-                        <h3 style={{ marginBottom: '55px' }}>Все ГПП</h3>
+                        {selectedTab !== 'info' && (
+                            <h3 style={{ marginBottom: '55px' }}>Все ГПП</h3>
+                        )}
                         {(selectedTab === 'filter' || selectedTab === 'young') && (
                             <>
                                 <Box
@@ -1234,29 +1272,52 @@ const IndividualDataDisplay = () => {
             </div>
 
             {selectedTab === 'info' && aggregatedData && (
-                <div className="farm-tables">
-                    <LakTable data={aggregatedData} />
-                    <MilkTable data={aggregatedData.milk} data_second={aggregatedData.median_milk} />
-                    <RelativeBreedingValueTable data={aggregatedData} />
-                    <div style={{
-                        width: '100%',
-                        margin: '0 auto',
-                        backgroundColor: '#fff',  // Белый фон
-                        padding: '20px',          // Добавляем отступы внутри контейнера
-                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Добавляем небольшую тень для красоты
-                        borderRadius: '8px'       // Скругляем углы для улучшения стиля
-                    }}>
-                        <h2>График плотности распределения</h2>
-                        <DensityChart datasets={density_data} />
+                <>
+
+                    <ParameterForecastingTable data={aggregatedData} forecasting={parameterData} />
+                    {loading && (
+                        <div style={{ textAlign: 'center' }}>
+                            <Typography variant="h6">Прогнозировние ...</Typography>
+                            <CircularProgress />
+                        </div>
+                    )}
+                    <Button style={{ display: 'block', margin: '0 auto' }} variant="contained" color="primary" onClick={handleParameterForecasting}>
+                        Прогнозировать
+                    </Button>
+
+                    <div className="data-display-container">
+                        <div className="tables-container">
+
+                            <div className="farm-tables">
+                                <LakTable data={aggregatedData} />
+                                <div style={{
+                                    width: '100%',
+                                    margin: '0 auto',
+                                    backgroundColor: '#fff',  // Белый фон
+                                    padding: '20px',          // Добавляем отступы внутри контейнера
+                                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Добавляем небольшую тень для красоты
+                                    borderRadius: '8px'       // Скругляем углы для улучшения стиля
+                                }}>
+                                    <h2>График плотности распределения</h2>
+                                    <DensityChart datasets={density_data} />
+                                </div>
+                                <br></br>
+                            </div>
+
+                            <div className="gpp-tables">
+                                <MilkTable data={aggregatedData.milk} data_second={aggregatedData.median_milk} />
+                                <RelativeBreedingValueTable data={aggregatedData} />
+                            </div>
+
+                        </div>
                     </div>
-                    <br></br>
-                </div>
+                </>
             )}
 
             <div className="data-display-container">
                 <div className="tables-container">
                     <div className="farm-tables">
-                        {selectedTab !== 'young' && (
+                        {selectedTab !== 'young' && selectedTab !== 'info' && (
                             <CowTable
                                 key={`cow-table-${reloadTables}`} // Уникальный ключ для перерисовки
                                 kodrn={farmCode}
@@ -1266,7 +1327,7 @@ const IndividualDataDisplay = () => {
                                 onParamChange={handleAdditionalParamChange}
                             />
                         )}
-                        {selectedTab === 'young' && (
+                        {selectedTab === 'young' && selectedTab !== 'info' && (
                             <YoungTable
                                 key={`young-table-${reloadTables}`} // Уникальный ключ для перерисовки
                                 kodrn={farmCode}
@@ -1276,53 +1337,57 @@ const IndividualDataDisplay = () => {
                             />
                         )}
                     </div>
-                    <div className="gpp-tables">
-                        <BullTable
-                            key={`bull-table-${reloadTables}`} // Уникальный ключ для перерисовки
-                            gpp={filterValues.selectedGpp}
-                            dataBull={dataBull}
-                            additionalParam={additionalParam}
-                            onSelectedChange={handleSelectedBullsChange}
-                        />
-                    </div>
+                    {selectedTab !== 'info' && (
+                        <div className="gpp-tables">
+                            <BullTable
+                                key={`bull-table-${reloadTables}`} // Уникальный ключ для перерисовки
+                                gpp={filterValues.selectedGpp}
+                                dataBull={dataBull}
+                                additionalParam={additionalParam}
+                                onSelectedChange={handleSelectedBullsChange}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
 
-            <Box
-                component="form"
-                onSubmit={handleSubmitconsolidation}
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    gap: 2,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    maxWidth: '520px',
-                    margin: '0 auto',
-                    mt: 2,
-                    backgroundColor: '#f9f9f9',
-                    borderRadius: 2,
-                    p: 2,
-                    boxShadow: 1
-                }}
-            >
+            {selectedTab !== 'info' && (
+                <Box
+                    component="form"
+                    onSubmit={handleSubmitconsolidation}
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        gap: 2,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        maxWidth: '520px',
+                        margin: '0 auto',
+                        mt: 2,
+                        backgroundColor: '#f9f9f9',
+                        borderRadius: 2,
+                        p: 2,
+                        boxShadow: 1
+                    }}
+                >
 
-                <TextField
-                    label="Название документа"
-                    name="minRM"
-                    variant="outlined"
-                    type="text"
-                    placeholder="Введите преписку к названию"
-                    value={nameDock}
-                    onChange={(e) => setNameDock(e.target.value)}
-                    size="small"
-                    sx={{ flex: 1 }}
-                />
+                    <TextField
+                        label="Название документа"
+                        name="minRM"
+                        variant="outlined"
+                        type="text"
+                        placeholder="Введите преписку к названию"
+                        value={nameDock}
+                        onChange={(e) => setNameDock(e.target.value)}
+                        size="small"
+                        sx={{ flex: 1 }}
+                    />
 
-                <Button type="submit" variant="contained" color="primary">
-                    Закрепить
-                </Button>
-            </Box>
+                    <Button type="submit" variant="contained" color="primary">
+                        Закрепить
+                    </Button>
+                </Box>
+            )}
 
             <Dialog
                 open={modalOpen}  // Показывается, если проверка запущена

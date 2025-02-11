@@ -165,7 +165,7 @@ const BullTable = ({ key, gpp, dataBull, additionalParam, onSelectedChange }) =>
     }, [prepareRow, rows]);
 
     return (
-        <div style={{ height: '845px' }} className="table-container">
+        <div className="table-container">
             <div className="table-wrapper">
                 {isLoading ? (
                     <div className="loading-container">
@@ -201,7 +201,7 @@ const BullTable = ({ key, gpp, dataBull, additionalParam, onSelectedChange }) =>
 
                             <div {...getTableBodyProps()} className="table-body">
                                 <List
-                                    height={670}
+                                    height={600}
                                     itemCount={rows.length}
                                     itemSize={() => 50}
                                     width={"100%"}
