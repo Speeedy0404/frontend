@@ -104,7 +104,6 @@ const ParameterForecastingTable = ({ data, forecasting }) => {
                         <td>Глубина вымени</td>
                         <td>{getValueOrDefault(data.conf.avg_ebv_gv)}</td>
                         <td>{formatValueWithColor(forecasting.gv)}</td>
-
                     </tr>
                     <tr>
                         <td>Рост</td>
@@ -113,7 +112,6 @@ const ParameterForecastingTable = ({ data, forecasting }) => {
                         <td >Прикрепление передней долей вымени</td>
                         <td>{getValueOrDefault(data.conf.avg_ebv_pdv)}</td>
                         <td>{formatValueWithColor(forecasting.pdv)}</td>
-
                     </tr>
                     <tr>
                         <td >Глубина туловища</td>
@@ -122,7 +120,6 @@ const ParameterForecastingTable = ({ data, forecasting }) => {
                         <td>Высота задней части вымени</td>
                         <td>{getValueOrDefault(data.conf.avg_ebv_vzcv)}</td>
                         <td>{formatValueWithColor(forecasting.vzcv)}</td>
-
                     </tr>
                     <tr>
                         <td>Положение зада</td>
@@ -139,7 +136,6 @@ const ParameterForecastingTable = ({ data, forecasting }) => {
                         <td>Центральная связка (глубина доли)</td>
                         <td>{getValueOrDefault(data.conf.avg_ebv_csv)}</td>
                         <td>{formatValueWithColor(forecasting.csv)}</td>
-
                     </tr>
                     <tr>
                         <td>Постановка задних конечностей (сбоку)</td>
@@ -148,7 +144,6 @@ const ParameterForecastingTable = ({ data, forecasting }) => {
                         <td >Расположение передних сосков</td>
                         <td>{getValueOrDefault(data.conf.avg_ebv_rps)}</td>
                         <td>{formatValueWithColor(forecasting.rps)}</td>
-
                     </tr>
                     <tr>
                         <td >Постановка задних конечностей (сзади)</td>

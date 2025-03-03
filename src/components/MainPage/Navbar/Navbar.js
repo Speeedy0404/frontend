@@ -41,7 +41,7 @@ const CustomNavbar = ({ token, toggleDarkMode, isDarkMode }) => {
                                     </LinkContainer>
                                 </NavDropdown> */}
                                 <LinkContainer to="/statistics">
-                                    <Nav.Link>Статистика</Nav.Link>
+                                    <Nav.Link>Статистика и Рейтинг</Nav.Link>
                                 </LinkContainer>
                                 <LinkContainer to="/books">
                                     <Nav.Link>Справочники</Nav.Link>

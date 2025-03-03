@@ -156,7 +156,7 @@ const BullTable = ({ key, gpp, dataBull, additionalParam, onSelectedChange }) =>
         return (
             <div {...row.getRowProps({ style })} className="table-row" onContextMenu={(event) => handleRowContextMenu(event, row.original.uniq_key)}>
                 {row.cells.map(cell => (
-                    <div {...cell.getCellProps()} className={`table-cell ${cell.column.className}`}>
+                    <div {...cell.getCellProps()} className={`table-cell ${cell.column.className}`} style={{ fontSize: cell.column.className === 'indiv-number' ? '12px' : (cell.column.className === 'datarojd' ? '13px' : '16px'), color: '#333', padding: '5px', textAlign: 'center' }}>
                         {cell.render('Cell')}
                     </div>
                 ))}
@@ -191,7 +191,7 @@ const BullTable = ({ key, gpp, dataBull, additionalParam, onSelectedChange }) =>
                                 {headerGroups.map(headerGroup => (
                                     <div {...headerGroup.getHeaderGroupProps()} className="table-header-row">
                                         {headerGroup.headers.map(column => (
-                                            <div {...column.getHeaderProps(column.getSortByToggleProps())} className={`table-header-cell ${column.className} ${column.isSorted ? (column.isSortedDesc ? 'sorted-desc' : 'sorted-asc') : ''}`}>
+                                            <div {...column.getHeaderProps(column.getSortByToggleProps())} style={{ fontSize: '12px', color: '#333', padding: '5px' }} className={`table-header-cell ${column.className} ${column.isSorted ? (column.isSortedDesc ? 'sorted-desc' : 'sorted-asc') : ''}`}>
                                                 {column.render('Header')}
                                             </div>
                                         ))}

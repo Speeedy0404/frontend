@@ -180,6 +180,7 @@ const CowTable = ({ key, kodrn, dataCow, onSelectedChange, selectedCowsMain, onP
                 return acc;
             }, {})
         }));
+        handleLeftModalClose();
     };
 
     const handleSelectBulls = () => {
@@ -349,11 +350,12 @@ const CowTable = ({ key, kodrn, dataCow, onSelectedChange, selectedCowsMain, onP
         return (
             <div {...row.getRowProps({ style: rowStyle })} className="table-row" onClick={(e) => handleRowClick(row.original.uniq_key, e)} onContextMenu={(e) => handleRowContextMenu(e, row.original.uniq_key)}>
                 {row.cells.map(cell => (
-                    <div {...cell.getCellProps()} className={`table-cell ${cell.column.className}`}>
+                    <div {...cell.getCellProps()} className={`table-cell ${cell.column.className}`} style={{ fontSize: cell.column.className === 'indiv-number-cow' ? '12px' : (cell.column.className === 'data' ? '13px' : '16px'), color: '#333', padding: '5px', textAlign: 'center' }}>
                         {cell.render('Cell')}
                     </div>
                 ))}
             </div>
+
         );
     }, [prepareRow, rows]);
 
@@ -448,7 +450,7 @@ const CowTable = ({ key, kodrn, dataCow, onSelectedChange, selectedCowsMain, onP
                                 {headerGroups.map(headerGroup => (
                                     <div {...headerGroup.getHeaderGroupProps()} className="table-header-row">
                                         {headerGroup.headers.map(column => (
-                                            <div {...column.getHeaderProps(column.getSortByToggleProps())} className={`table-header-cell ${column.className} ${column.isSorted ? (column.isSortedDesc ? 'sorted-desc' : 'sorted-asc') : ''}`}>
+                                            <div {...column.getHeaderProps(column.getSortByToggleProps())}  style={{ fontSize: '12px', color: '#333', padding: '5px' }} className={`table-header-cell ${column.className} ${column.isSorted ? (column.isSortedDesc ? 'sorted-desc' : 'sorted-asc') : ''}`}  >
                                                 {column.render('Header')}
                                             </div>
                                         ))}

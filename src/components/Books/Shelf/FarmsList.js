@@ -96,7 +96,8 @@ const FarmsList = () => {
                 <List>
                     {filteredFarms.map(farm => (
                         <ListItem key={farm.korg}>
-                            <ListItemText primary={farm.norg} secondary={`Регион: ${farm.region}, Область: ${farm.area}, Код хозяйства: ${farm.kter}, Код района: ${farm.kter}`} />
+                            {/* <ListItemText primary={farm.norg} secondary={`Регион: ${farm.region}, Область: ${farm.area}, Код хозяйства: ${farm.kter}, Код района: ${farm.kter}`} /> */}
+                            <ListItemText primary={farm.norg} secondary={`Код хозяйства: ${farm.kter}, Код района: ${farm.kter}`} />
                         </ListItem>
                     ))}
                 </List>

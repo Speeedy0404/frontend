@@ -44,7 +44,7 @@ const ConformationList = ({ data }) => {
                                 <React.Fragment key={index}>
                                     {/* Метка в первой колонке */}
                                     <Grid item xs={8}>
-                                        <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                                        <Typography variant="body2" sx={{ fontSize: '1.0 rem' }}>
                                             {label}
                                         </Typography>
                                     </Grid>
@@ -53,6 +53,7 @@ const ConformationList = ({ data }) => {
                                         <Typography
                                             variant="body2"
                                             sx={{
+                                                fontSize: '1.0rem',
                                                 fontWeight: 'bold',
                                                 color: firstColumnValues[index] !== undefined ? getColorForValue(firstColumnValues[index]) : 'gray',
                                                 textAlign: 'right'
@@ -73,7 +74,7 @@ const ConformationList = ({ data }) => {
                                 <React.Fragment key={index}>
                                     {/* Метка в первой колонке */}
                                     <Grid item xs={8}>
-                                        <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                                        <Typography variant="body2" sx={{ fontSize: '1.0rem' }}>
                                             {label}
                                         </Typography>
                                     </Grid>
@@ -82,6 +83,7 @@ const ConformationList = ({ data }) => {
                                         <Typography
                                             variant="body2"
                                             sx={{
+                                                fontSize: '1.0rem',
                                                 fontWeight: 'bold',
                                                 color: secondColumnValues[index] !== undefined ? getColorForValue(secondColumnValues[index]) : 'gray',
                                                 textAlign: 'right'

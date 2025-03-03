@@ -8,10 +8,14 @@
 }
 
 .table-cell.indiv-number-cow {
-    min-width: 105px;
+    min-width: 120px;
     /* Или другое значение, чтобы столбец был немного шире */
 }
-
+.table-header-cell.indiv-number-cow{
+    min-width: 120px;
+    max-width: 130px;
+    /* Или другое значение, чтобы столбец был немного шире */
+}
 
 
 .table-header-cell.consolidation {
@@ -21,8 +25,8 @@
 }
 
 .table-header-cell.first-column-cow {
-    min-width: 100px;
-    max-width: 110px;
+    min-width: 110px;
+    max-width: 120px;
     /* Установите нужную ширину */
 }
 

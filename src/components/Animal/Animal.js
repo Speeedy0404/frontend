@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axiosInstance from '../../axiosConfig';
 import BarChartComponent from './BarChartComponent'
 
@@ -158,10 +158,10 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Показатель</TableCell>
-                            <TableCell>EBV</TableCell>
-                            <TableCell>REL</TableCell>
-                            <TableCell>RBV</TableCell>
+                            <TableCell style={{ fontSize: '18px', textAlign: 'center' }} >Показатель</TableCell>
+                            <TableCell style={{ fontSize: '18px', textAlign: 'center' }} >EBV</TableCell>
+                            <TableCell style={{ fontSize: '18px', textAlign: 'center' }} >REL</TableCell>
+                            <TableCell style={{ fontSize: '18px', textAlign: 'center' }} >RBV</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -169,7 +169,7 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                             <>
                                 <TableRow>
                                     <TableCell colSpan={4}>
-                                        <Typography variant="h6" sx={{ mb: 2 }}>
+                                        <Typography style={{ textAlign: 'center' }} variant="h6" sx={{ mb: 2 }}>
                                             Количество дочерей: <strong>{getValue_OrDefault(data.milkproductionindexbull.num_daug_est)}</strong>
                                             {' || '}
                                             Количество стад: <strong>{getValue_OrDefault(data.milkproductionindexbull.num_herd_est)}</strong>
@@ -178,34 +178,34 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>{'M,kg'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.ebv_milk) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rel_milk) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rbv_milk) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }}  >{'M,kg'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.ebv_milk) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rel_milk) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rbv_milk) : 'Не указан'}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>{'F,kg'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.ebv_fkg) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rel_fkg) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rbv_fkg) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }}  >{'F,kg'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.ebv_fkg) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rel_fkg) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rbv_fkg) : 'Не указан'}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>{'F,%'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.ebv_fprc) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rel_fprc) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rbv_fprc) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }}  >{'F,%'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.ebv_fprc) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rel_fprc) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rbv_fprc) : 'Не указан'}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>{'P,kg'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.ebv_pkg) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rel_pkg) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rbv_pkg) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }}  >{'P,kg'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.ebv_pkg) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rel_pkg) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rbv_pkg) : 'Не указан'}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>{'P,%'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.ebv_pprc) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rel_pprc) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rbv_pprc) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }}  >{'P,%'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.ebv_pprc) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rel_pprc) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.milkproductionindexbull ? getValueOrDefault(data.milkproductionindexbull.rbv_pprc) : 'Не указан'}</TableCell>
                                 </TableRow>
                             </>
                         )}
@@ -213,7 +213,7 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                             <>
                                 <TableRow>
                                     <TableCell colSpan={4}>
-                                        <Typography variant="h6" sx={{ mb: 2 }}>
+                                        <Typography style={{ textAlign: 'center' }} variant="h6" sx={{ mb: 2 }}>
                                             Количество дочерей: <strong>{getValue_OrDefault(data.reproductionindexbull.num_daug_est)}</strong>
                                             {' || '}
                                             Количество стад: <strong>{getValue_OrDefault(data.reproductionindexbull.num_herd_est)}</strong>
@@ -222,22 +222,22 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>{'CRh'}</TableCell>
-                                    <TableCell align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.ebv_crh) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rel_crh) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rbv_crh) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} >{'CRh'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.ebv_crh) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rel_crh) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rbv_crh) : 'Не указан'}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>{'CTF'}</TableCell>
-                                    <TableCell align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.ebv_ctfi) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rel_ctfi) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rbv_ctfi) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} >{'CTF'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.ebv_ctfi) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rel_ctfi) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rbv_ctfi) : 'Не указан'}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>{'DO'}</TableCell>
-                                    <TableCell align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.ebv_do) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rel_do) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rbv_do) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} >{'DO'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.ebv_do) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rel_do) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.reproductionindexbull ? getValueOrDefault(data.reproductionindexbull.rbv_do) : 'Не указан'}</TableCell>
                                 </TableRow>
                             </>
                         )}
@@ -245,7 +245,7 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                             <>
                                 <TableRow>
                                     <TableCell colSpan={4}>
-                                        <Typography variant="h6" sx={{ mb: 2 }}>
+                                        <Typography style={{ textAlign: 'center' }} variant="h6" sx={{ mb: 2 }}>
                                             Количество дочерей: <strong>{getValue_OrDefault(data.somaticcellindexbull.num_daug_est)}</strong>
                                             {' || '}
                                             Количество стад: <strong>{getValue_OrDefault(data.somaticcellindexbull.num_herd_est)}</strong>
@@ -254,10 +254,10 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>{'SCS'}</TableCell>
-                                    <TableCell align="right">{data.somaticcellindexbull ? getValueOrDefault(data.somaticcellindexbull.ebv_scs) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.somaticcellindexbull ? getValueOrDefault(data.somaticcellindexbull.rel_scs) : 'Не указан'}</TableCell>
-                                    <TableCell align="right">{data.somaticcellindexbull ? getValueOrDefault(data.somaticcellindexbull.rscs) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} >{'SCS'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.somaticcellindexbull ? getValueOrDefault(data.somaticcellindexbull.ebv_scs) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.somaticcellindexbull ? getValueOrDefault(data.somaticcellindexbull.rel_scs) : 'Не указан'}</TableCell>
+                                    <TableCell style={{ fontSize: '18px', textAlign: 'center' }} align="right">{data.somaticcellindexbull ? getValueOrDefault(data.somaticcellindexbull.rscs) : 'Не указан'}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell colSpan={4}>
@@ -283,21 +283,21 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                         <CardHeader />
                         {data.conformationindexbull && (
                             <div>
-                                <Typography style={{ padding: 10 }} variant="h6" sx={{ mb: 2 }}>
+                                <Typography style={{ padding: 10, textAlign: 'center' }} variant="h6" sx={{ mb: 2 }}>
                                     Количество дочерей: <strong>{getValue_OrDefault(data.conformationindexbull.num_daug_est)}</strong>
                                     {' || '}
                                     Количество стад: <strong>{getValue_OrDefault(data.conformationindexbull.num_herd_est)}</strong>
                                 </Typography>
 
                                 <CardContent>
-                                    <Typography>RBVT: {getValue_OrDefault(data.conformationindexbull.rbvt)} RBVF: {getValue_OrDefault(data.conformationindexbull.rbvf)} RBVU: {getValue_OrDefault(data.conformationindexbull.rbvu)} RC: {getValue_OrDefault(data.conformationindexbull.rc)}</Typography>
+                                    <Typography style={{ fontSize: '18px', textAlign: 'center' }}>RBVT: {getValue_OrDefault(data.conformationindexbull.rbvt)} RBVF: {getValue_OrDefault(data.conformationindexbull.rbvf)} RBVU: {getValue_OrDefault(data.conformationindexbull.rbvu)} RC: {getValue_OrDefault(data.conformationindexbull.rc)}</Typography>
                                 </CardContent>
                                 <hr></hr>
                                 {
                                     data.milkproductionindexbull && data.reproductionindexbull && data.somaticcellindexbull && data.conformationindexbull && data.complexindexbull &&
                                     (
                                         <CardContent>
-                                            <Typography>RM: {getValue_OrDefault(data.milkproductionindexbull.rm)} RF: {getValue_OrDefault(data.reproductionindexbull.rf)} RSCS: {getValue_OrDefault(data.somaticcellindexbull.rscs)} RC: {getValue_OrDefault(data.conformationindexbull.rc)} PI: {getValue_OrDefault(data.complexindexbull.pi)}</Typography>
+                                            <Typography style={{ fontSize: '18px', textAlign: 'center' }}>RM: {getValue_OrDefault(data.milkproductionindexbull.rm)} RF: {getValue_OrDefault(data.reproductionindexbull.rf)} RSCS: {getValue_OrDefault(data.somaticcellindexbull.rscs)} RC: {getValue_OrDefault(data.conformationindexbull.rc)} PI: {getValue_OrDefault(data.complexindexbull.pi)}</Typography>
                                         </CardContent>
                                     )
                                 }
@@ -325,8 +325,8 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Родитель</TableCell>
-                                <TableCell align="left">Родители родителя</TableCell>
+                                <TableCell style={{ fontSize: '18px', textAlign: 'center' }}>Родитель</TableCell>
+                                <TableCell style={{ fontSize: '18px', textAlign: 'center' }} >Родители родителя</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -337,7 +337,7 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                                             e.preventDefault();
                                             handleModalOpen(value, label);
                                         }}
-                                            style={{ cursor: 'pointer' }} rowSpan={subEntries.length + 1}>{label}: {value || 'Не указан'}</TableCell>
+                                            style={{ cursor: 'pointer', fontSize: '18px', textAlign: 'center' }} rowSpan={subEntries.length + 1}>{label}: {value || 'Не указан'}</TableCell>
                                     </TableRow>
                                     {subEntries.map(({ subLabel, subValue }) => (
                                         <TableRow key={subLabel}>
@@ -345,7 +345,7 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                                                 e.preventDefault();
                                                 handleModalOpen(subValue, subLabel);
                                             }}
-                                                style={{ cursor: 'pointer' }}>{subLabel}: {subValue || 'Не указан'}</TableCell>
+                                                style={{ cursor: 'pointer', fontSize: '18px', textAlign: 'center' }}>{subLabel}: {subValue || 'Не указан'}</TableCell>
                                         </TableRow>
                                     ))}
                                 </React.Fragment>
@@ -505,47 +505,42 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                                 <CardHeader title="Общие данные о животном" />
                                 <Divider />
                                 <CardContent>
-                                    <Typography variant="h6" sx={{ mb: 2 }}>
-                                        Основная информация
-                                    </Typography>
-                                    <Typography variant="body1" sx={{ mb: 1 }}>
+                                    <Typography variant="body1" sx={{ mb: 1, textAlign: 'left', marginLeft: '20px' }}>
                                         <strong>Индивидуальный номер:</strong> {animalData.info[0].uniq_key || 'Не указан'}
                                     </Typography>
-                                    <Typography variant="body1" sx={{ mb: 1 }}>
+                                    <Typography variant="body1" sx={{ mb: 1, textAlign: 'left', marginLeft: '20px' }}>
                                         <strong>Рабочий номер:</strong> {animalData.info[0].nomer || 'Не указан'}
                                     </Typography>
-                                    <Typography variant="body1" sx={{ mb: 1 }}>
+                                    <Typography variant="body1" sx={{ mb: 1, textAlign: 'left', marginLeft: '20px' }}>
                                         <strong>Кличка:</strong> {animalData.info[0].klichka || 'Не указана'}
                                     </Typography>
-                                    <Typography variant="body1" sx={{ mb: 1 }}>
+                                    <Typography variant="body1" sx={{ mb: 1, textAlign: 'left', marginLeft: '20px' }}>
                                         <strong>Дата рождения:</strong> {animalData.info[0].datarojd || 'Не указана'}
                                     </Typography>
-                                    {/* <Typography variant="body1" sx={{ mb: 1 }}>
-                                        <strong>Дата выбытия:</strong> {animalData.info[0].datavybr || 'Не указана'}
-                                    </Typography> */}
-                                    <Typography variant="body1" sx={{ mb: 1 }}>
+                                    <Typography variant="body1" sx={{ mb: 1, textAlign: 'left', marginLeft: '20px' }}>
                                         <strong>Место рождения:</strong> {animalData.mestorojd || 'Не указан'}
                                     </Typography>
-                                    <Typography variant="body1" sx={{ mb: 1 }}>
+                                    <Typography variant="body1" sx={{ mb: 1, textAlign: 'left', marginLeft: '20px' }}>
                                         <strong>Принадлежит:</strong> {animalData.ovner || 'Не указан'}
                                     </Typography>
-                                    <Typography variant="body1" sx={{ mb: 1 }}>
+                                    <Typography variant="body1" sx={{ mb: 1, textAlign: 'left', marginLeft: '20px' }}>
                                         <strong>Комплекс:</strong> {animalData.info[0].kompleks || 'Не указан'}
                                     </Typography>
-                                    <Typography variant="body1" sx={{ mb: 1 }}>
+                                    <Typography variant="body1" sx={{ mb: 1, textAlign: 'left', marginLeft: '20px' }}>
                                         <strong>Семя:</strong> {animalData.info[0].sperma || 'Не указаны'}
                                     </Typography>
-                                    <Typography variant="body1" sx={{ mb: 1 }}>
+                                    <Typography variant="body1" sx={{ mb: 1, textAlign: 'left', marginLeft: '20px' }}>
                                         <strong>Ветка:</strong> {animalData.branch || 'Не указан'}
                                     </Typography>
-                                    <Typography variant="body1" sx={{ mb: 1 }} >
+                                    <Typography variant="body1" sx={{ mb: 1, textAlign: 'left', marginLeft: '20px' }}>
                                         <strong>Линия:</strong> {animalData.info[0].lin_name || 'Не указано'}
                                     </Typography>
-                                    <Typography variant="body1" sx={{ mb: 1 }} >
+                                    <Typography variant="body1" sx={{ mb: 1, textAlign: 'left', marginLeft: '20px' }}>
                                         <strong>Порода:</strong> {animalData.por.join(', ') || 'Не указано'}
                                     </Typography>
                                 </CardContent>
                             </Card>
+
 
                             <br></br>
 
@@ -569,7 +564,7 @@ const Animal = ({ indivNumber: initialIndivNumber }) => {
                                                 <strong style={{ paddingRight: "10px" }}>Индивидуальный номер:</strong>
                                                 {animalData.info[0].uniq_key || 'Не указан'}
                                                 <span style={{ marginLeft: "20px" }}>
-                                                    <strong>Рабочий номер: </strong> 
+                                                    <strong>Рабочий номер: </strong>
                                                     {animalData.info[0].nomer || 'Не указан'}
                                                 </span>
                                             </div>
