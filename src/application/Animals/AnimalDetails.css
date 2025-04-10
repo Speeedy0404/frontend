@@ -1,0 +1,313 @@
+.animal-details-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  color: inherit;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #007BFF;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+.animal-details-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.dark-mode .animal-details-card {
+  background-color: #2b2b2b;
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+}
+
+.animal-details-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.details-content {
+  padding: 20px;
+}
+
+.details-content h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #007BFF;
+}
+
+.dark-mode .details-content h2 {
+  color: #66b3ff;
+}
+
+.details-content p {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.dark-mode .details-content p {
+  color: #ccc;
+}
+
+/* Родословная */
+.pedigree {
+  margin-top: 30px;
+}
+
+.pedigree h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #007BFF;
+}
+
+.dark-mode .pedigree h3 {
+  color: #66b3ff;
+}
+
+.pedigree-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.pedigree-column {
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.dark-mode .pedigree-column {
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+}
+
+.parent-name {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.dark-mode .parent-name {
+  border-bottom: 1px solid #555;
+  color: #f4f4f4;
+}
+
+.pedigree-subrow {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.sub-parent {
+  font-size: 1rem;
+  text-align: center;
+  padding: 5px;
+  flex: 1;
+  border-right: 1px solid #ccc;
+}
+
+.sub-parent:last-child {
+  border-right: none;
+}
+
+.dark-mode .sub-parent {
+  border-right: 1px solid #555;
+  color: #ccc;
+}
+
+/* Кликабельность */
+.clickable {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clickable:hover {
+  background-color: #e0e0e0;
+}
+
+.dark-mode .clickable:hover {
+  background-color: #333;
+}
+
+/* Таблицы индексов */
+.indices-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.indices-table th,
+.indices-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.indices-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.dark-mode .indices-table th {
+  background-color: #1e1e1e;
+  color: #f4f4f4;
+}
+
+.separator,
+.table-separator td {
+  border-top: 1px solid white;
+}
+
+.cow-indices {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .animal-details-card img {
+    height: 200px;
+  }
+  .details-content h2 {
+    font-size: 1.5rem;
+  }
+  .details-content p {
+    font-size: 1rem;
+  }
+  .pedigree h3 {
+    font-size: 1.5rem;
+  }
+  .indices-table th,
+  .indices-table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+  .pedigree-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .pedigree-column {
+    width: 100%;
+  }
+}
+
+.tabs-container {
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.tabs-header {
+  display: flex;
+  border-bottom: 2px solid #007BFF;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #007BFF;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+  flex: 1;
+  text-align: center;
+}
+
+.tab.active {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.dark-mode .tab {
+  color: #66b3ff;
+}
+
+.dark-mode .tab.active {
+  background-color: #66b3ff;
+  color: #fff;
+}
+
+.tabs-content {
+  padding: 20px;
+}
+
+.additional-info {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.dark-mode .additional-info {
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+}
+
+.additional-info h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #007BFF;
+}
+
+.dark-mode .additional-info h3 {
+  color: #66b3ff;
+}
+
+.additional-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.dark-mode .info-name {
+  color: #f4f4f4;
+}
+
+.info-value {
+  color: #555;
+}
+
+.dark-mode .info-value {
+  color: #ccc;
+}
+
+@media(max-width: 768px) {
+  .additional-info-grid {
+    grid-template-columns: 1fr;
+  }
+}

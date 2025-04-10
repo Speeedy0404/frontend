@@ -1,0 +1,41 @@
+.conformation-card {
+    max-width: 1000px;
+    margin: auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    /* Добавляем плавную тень для подъёма */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+  }
+  
+  .conformation-card:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Стили для тёмной темы */
+  .dark-mode .conformation-card {
+    background-color: #1e1e1e;
+    color: #f4f4f4;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+  }
+  
+  .conformation-divider {
+    margin-bottom: 16px;
+  }
+  
+  .conformation-label {
+    font-size: 1rem;
+  }
+  
+  .conformation-value {
+    font-size: 1rem;
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .conformation-card {
+      max-width: 95%;
+      margin: 20px auto;
+    }
+  }
+  

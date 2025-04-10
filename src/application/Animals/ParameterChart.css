@@ -1,0 +1,38 @@
+.card {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1000px;
+    /* Стандартная высота для десктопа */
+    height: 500px;
+    background-color: #fff;
+}
+
+.dark-mode .card {
+    background-color: #333;
+}
+
+@media (max-width: 768px) {
+    .card {
+        /* Увеличиваем высоту на мобильных устройствах */
+        height: 600px;
+    }
+}
+
+/* .print-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .print-button:hover {
+    background-color: #45a049;
+  }
+  
+  @media print {
+    .print-button {
+      display: none;
+    }
+  } */

@@ -1,0 +1,122 @@
+/* Контейнер для всего */
+.cows-binding {
+    padding: 16px;
+    margin: 20px auto;
+    max-width: 1300px;
+    border-radius: 12px;
+}
+
+/* Темная тема */
+.cows-binding.dark {
+    background: #1e1e1e;
+    color: #fff;
+}
+
+/* Светлая тема */
+.cows-binding.light {
+    background: #fff;
+    color: #000;
+}
+
+/* Граница у полей ввода при наведении (hover) */
+.cows-binding .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #42a5f5 !important; /* Синий при наведении */
+}
+
+/* Граница у полей ввода при фокусе */
+.cows-binding .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #42a5f5 !important; /* Синий при фокусе */
+}
+
+/* Граница у полей ввода в темной теме */
+.cows-binding.dark .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.6); /* Белая граница в темной теме */
+}
+
+/* Граница у полей ввода в светлой теме */
+.cows-binding.light .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(0, 0, 0, 0.4); /* Темная граница в светлой теме */
+}
+
+/* Цвет фокуса и границы в темной теме */
+.cows-binding.dark .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #42a5f5; /* Акцент на синий при фокусе в темной теме */
+}
+
+/* Цвет фокуса и границы в светлой теме */
+.cows-binding.light .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #42a5f5; /* Акцент на синий при фокусе в светлой теме */
+}
+
+/* Цвет label */
+.cows-binding .MuiInputLabel-root {
+    color: inherit;
+}
+
+/* Чекбоксы - темная тема */
+.cows-binding.dark .MuiCheckbox-root {
+    color: rgba(255, 255, 255, 0.7); /* светлый на темном фоне */
+}
+
+/* Чекбоксы - светлая тема */
+.cows-binding.light .MuiCheckbox-root {
+    color: rgba(0, 0, 0, 0.7); /* темный на светлом фоне */
+}
+
+/* Активный (отмеченный) чекбокс - общий */
+.cows-binding .MuiCheckbox-root.Mui-checked {
+    color: #42a5f5; /* Синий акцент */
+}
+
+/* Активный чекбокс */
+.cows-binding .MuiCheckbox-root.Mui-checked {
+    color: #42a5f5;
+    /* Синий как акцент */
+}
+
+/* Кнопки */
+.cows-binding .MuiButton-root {
+    border-radius: 8px;
+    padding: 8px 24px;
+}
+
+/* Подписи к фильтрам */
+.cows-binding .MuiTypography-subtitle2 {
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+/* При наведении на поле (hover) */
+.cows-binding .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.9);
+    /* светлее при наведении */
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .loading-content {
+    background: gray;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  

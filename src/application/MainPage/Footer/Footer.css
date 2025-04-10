@@ -1,0 +1,38 @@
+.footer-custom {
+    background-color: #212529;
+    color: #fff;
+    padding: 20px 0;
+}
+
+.footer-col {
+    margin-bottom: 20px;
+}
+
+.footer-custom .footer-col h5 {
+    color: #fff;
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.link-item {
+    color: #ffdd57;
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #343a40;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.link-item:hover {
+    background-color: #495057;
+}
+
+@media (max-width: 768px) {
+    .footer-custom .footer-col {
+        text-align: center;
+    }
+}

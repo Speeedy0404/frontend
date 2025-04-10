@@ -1,0 +1,163 @@
+/* Общие стили для контейнера */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); /* Вычитаем высоту навбара и футера */
+    background-color: #f4f4f4;
+}
+
+.dark-mode .login-container {
+    background-color: #121212;
+}
+
+/* Стили для формы авторизации */
+.login-form {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .login-form {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+/* Заголовок формы */
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.dark-mode .login-form h2 {
+    color: #f4f4f4;
+}
+
+/* Стили для групп элементов формы */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Метки (labels) */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #555;
+}
+
+.dark-mode .form-group label {
+    color: #ccc;
+}
+
+/* Поля ввода */
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.dark-mode .form-group input {
+    background-color: #2b2b2b;
+    border-color: #444;
+    color: #eee;
+}
+
+.dark-mode .form-group input:focus {
+    border-color: #66b3ff;
+}
+
+/* Кнопка входа */
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+.dark-mode .login-button {
+    background-color: #66b3ff;
+}
+
+.dark-mode .login-button:hover {
+    background-color: #3385cc;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    .login-form {
+        padding: 30px 20px;
+    }
+
+    .login-form h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-group label,
+    .form-group input,
+    .login-button {
+        font-size: 1rem;
+    }
+}
+
+/* ... Ваши существующие стили ... */
+
+/* Стили для группы пароля */
+.password-group {
+    position: relative;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 80px; /* Добавляем отступ для кнопки показа */
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #007BFF;
+    font-size: 0.9rem;
+    user-select: none;
+}
+
+.password-toggle:hover {
+    text-decoration: underline;
+}
+
+.dark-mode .password-toggle {
+    color: #66b3ff;
+}
+
+@media (max-width: 480px) {
+    .password-toggle {
+        font-size: 0.8rem;
+    }
+}

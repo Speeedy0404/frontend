@@ -30,7 +30,7 @@ const ParameterForecastingTable = ({ data, forecasting }) => {
                         <th>Показатель</th>
                         <th>Среднее</th>
                         <th>Прогноз</th>
-                        <th >Показатель</th>
+                        <th>Показатель</th>
                         <th>Среднее</th>
                         <th>Прогноз</th>
                     </tr>

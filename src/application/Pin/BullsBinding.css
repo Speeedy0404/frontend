@@ -1,0 +1,202 @@
+/* Контейнер для всего */
+.bulls-binding {
+    padding: 16px;
+    margin: 20px auto;
+    max-width: 1300px;
+    border-radius: 12px;
+}
+
+/* Темная тема */
+.bulls-binding.dark {
+    background: #1e1e1e;
+    color: #fff;
+}
+
+/* Светлая тема */
+.bulls-binding.light {
+    background: #fff;
+    color: #000;
+}
+
+/* Граница у полей ввода при наведении (hover) */
+.bulls-binding .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #42a5f5 !important; /* Синий при наведении */
+}
+
+/* Граница у полей ввода при фокусе */
+.bulls-binding .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #42a5f5 !important; /* Синий при фокусе */
+}
+
+/* Граница у полей ввода в темной теме */
+.bulls-binding.dark .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.6); /* Белая граница в темной теме */
+}
+
+/* Граница у полей ввода в светлой теме */
+.bulls-binding.light .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(0, 0, 0, 0.4); /* Темная граница в светлой теме */
+}
+
+/* Цвет фокуса и границы в темной теме */
+.bulls-binding.dark .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #42a5f5; /* Акцент на синий при фокусе в темной теме */
+}
+
+/* Цвет фокуса и границы в светлой теме */
+.bulls-binding.light .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #42a5f5; /* Акцент на синий при фокусе в светлой теме */
+}
+
+/* Цвет label */
+.bulls-binding .MuiInputLabel-root {
+    color: inherit;
+}
+
+.bulls-binding .MuiFormControlLabel-root {
+    margin: 0;
+    padding: 2px 4px;
+    /* меньше отступы вокруг */
+}
+
+.bulls-binding .MuiCheckbox-root {
+    padding: 4px;
+    /* компактнее чекбокс */
+}
+
+/* Чекбоксы - темная тема */
+.bulls-binding.dark .MuiCheckbox-root {
+    color: rgba(255, 255, 255, 0.7);
+    /* светлый на темном фоне */
+}
+
+/* Чекбоксы - светлая тема */
+.bulls-binding.light .MuiCheckbox-root {
+    color: rgba(0, 0, 0, 0.7);
+    /* темный на светлом фоне */
+}
+
+/* Активный (отмеченный) чекбокс - общий */
+.bulls-binding .MuiCheckbox-root.Mui-checked {
+    color: #42a5f5;
+    /* Синий акцент */
+}
+
+/* Активный чекбокс */
+.bulls-binding .MuiCheckbox-root.Mui-checked {
+    color: #42a5f5;
+    /* Синий как акцент */
+}
+
+/* Кнопки */
+.bulls-binding .MuiButton-root {
+    border-radius: 8px;
+    padding: 8px 24px;
+}
+
+/* Подписи к фильтрам */
+.bulls-binding .MuiTypography-subtitle2 {
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-content {
+    background: gray;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.dark-mode {
+    background-color: #121212;
+    /* Тёмный фон */
+    color: #ffffff;
+    /* Белый текст */
+}
+
+.dark-mode .MuiPaper-root {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+}
+
+/* .dark-mode .MuiTypography-root {
+    color: #ffffff !important;
+} */
+
+.dark-mode .MuiButton-containedPrimary {
+    background-color: #1976d2 !important;
+    color: #ffffff !important;
+}
+
+.dark-mode .MuiButton-containedSecondary {
+    background-color: #d32f2f !important;
+    color: #ffffff !important;
+}
+
+.dark-mode .MuiSelect-root,
+.dark-mode .MuiOutlinedInput-root {
+    background-color: #2c2c2c !important;
+    color: #ffffff !important;
+}
+
+.dark-mode .MuiTable-root {
+    background-color: #1e1e1e !important;
+}
+
+.dark-mode .MuiTableCell-root {
+    color: #ffffff !important;
+    border-bottom: 1px solid #444 !important;
+}
+
+.dark-mode .MuiTablePagination-root {
+    color: #ffffff !important;
+}
+
+/* .dark-mode .MuiIconButton-root {
+    color: #ffffff !important;
+} */
+
+/* .dark-mode .MuiCircularProgress-root {
+    color: #ffffff !important;
+} */
+
+.dark-mode .MuiRadio-root {
+    color: #ffffff !important;
+}
+
+.dark-mode .MuiPaper-elevation1 {
+    background-color: #1e1e1e !important;
+}
+
+.dark-mode .MuiTableContainer-root {
+    background-color: #1e1e1e !important;
+}

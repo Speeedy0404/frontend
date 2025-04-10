@@ -1,0 +1,386 @@
+/* Общие стили для страницы Pin */
+.pin-container {
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.pin-container.dark-mode {
+  background-color: #222;
+  color: #ddd;
+}
+
+.pin-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+/* Стили вкладок и секций */
+.info-tab h3,
+.forecast-tab h3,
+.binding-tab h3 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Таблицы */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Placeholder для графика плотности */
+.density-chart-placeholder {
+  width: 100%;
+  height: 300px;
+  border: 2px dashed #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Стили для вкладки Прогноз */
+.table-section {
+  margin-bottom: 20px;
+}
+
+.table-section h4 {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+/* Закрепление – правые и левые части */
+.binding-split {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  /* чтобы контейнер не вылазил за пределы */
+  box-sizing: border-box;
+}
+
+.right-side,
+.left-side {
+  flex: 1;
+  min-width: 250px;
+  /* Можно уменьшить с 300px для телефонов */
+  max-width: 100%;
+  /* Чтобы не превышать ширину */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  /* Важно для корректного учета padding */
+  overflow-wrap: break-word;
+  /* Чтобы текст не ломал верстку */
+}
+
+/* Переключатель для типов животных */
+.animal-type-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Таблицы с закреплением */
+.fixed-row {
+  background-color: #eee;
+  pointer-events: none;
+}
+
+.fixed-row.dark {
+  background-color: #3b3838 !important;
+  color: #b0b0b0 !important;
+}
+
+/* Пагинация */
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  flex-wrap: wrap; /* Чтобы элементы переносились на новую строку при необходимости */
+  gap: 10px; /* Добавляем отступы между элементами */
+}
+
+.pagination-controls button,
+.pagination-controls select {
+  padding: 6px 12px;
+  cursor: pointer;
+  flex: 0 1 auto; /* Чтобы элементы могли сжиматься при необходимости */
+}
+
+@media (max-width: 600px) {
+  .pagination-controls button,
+  .pagination-controls select {
+    flex: 1; /* Кнопки и select занимают всю доступную ширину */
+    max-width: 100%; /* Чтобы не выходили за пределы контейнера */
+    text-align: center; /* Выравнивание текста по центру */
+  }
+}
+/* Спиннеры */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.2);
+  border-top: 4px solid #007BFF;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Кнопки действий */
+.action-button {
+  font-size: 1rem;
+  text-transform: none;
+}
+
+/* Dark mode стили */
+.dark-mode .data-table th,
+.dark-mode .data-table td {
+  border: 1px solid #555;
+}
+
+.dark-mode .density-chart-placeholder {
+  border: 2px dashed #555;
+}
+
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode .filter-group label {
+  color: #ccc;
+}
+
+.dark-mode .right-side,
+.dark-mode .left-side,
+.dark-mode .binding-split {
+  border: 1px solid #555;
+}
+
+.dark-mode .action-button,
+.dark-mode .search-button,
+.dark-mode .confirm-button {
+  background-color: #66b3ff !important;
+  color: #fff !important;
+}
+
+.dark-mode .action-button:hover,
+.dark-mode .search-button:hover,
+.dark-mode .confirm-button:hover {
+  background-color: #4187c7 !important;
+}
+
+/* Media запросы для телефонов */
+@media (max-width: 768px) {
+  .binding-split {
+    flex-direction: column;
+  }
+
+  .right-side,
+  .left-side {
+    min-width: unset;
+    /* Отменяем минимальную ширину */
+    width: 100%;
+    /* Растягиваем на всю ширину */
+  }
+
+  .binding-common {
+    flex-direction: column;
+    /* Поле и кнопка в колонку */
+  }
+}
+
+/* Раскладка внутри InfoTab */
+.info-tab .grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.info-tab .grid-item {
+  /* Можно добавить небольшое внутреннее паддинг или рамку, если нужно */
+  padding: 10px;
+  /* Для наглядности можно установить прозрачную рамку, чтобы не изменять дизайн */
+  border: 1px solid transparent;
+}
+
+.info-tab .grid-item h3 {
+  margin-bottom: 10px;
+}
+
+/* Растягиваем график на всю ширину */
+.info-tab .grid-item.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Добавляем стили для разделения контента на две части */
+
+.info-tab .tables-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.info-tab .table-item {
+  padding: 10px;
+  border: 1px solid transparent;
+}
+
+.info-tab .chart-container {
+  margin-top: 20px;
+}
+
+.info-tab .density-chart-placeholder {
+  width: 100%;
+  height: 410px;
+  border: 2px dashed #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Если нужно, можно добавить дополнительные отступы */
+}
+
+/* Обёртка для графика, которая задаёт одну dashed рамку и отступы */
+.density-chart-container {
+  width: 100%;
+  height: 350px;
+  /* увеличили высоту */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 25px;
+  /* увеличили внутренний отступ до 25px */
+}
+
+/* Для маленьких экранов можно уменьшить высоту и отступ */
+@media (max-width: 768px) {
+  .density-chart-container {
+    height: 250px;
+    padding: 15px;
+  }
+}
+
+/* Обёртка для компонента графика */
+.density-chart-wrapper {
+  width: 100%;
+  max-width: 100%;
+}
+
+
+/* Стили для вкладки Прогноз */
+.forecast-tab h3 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+/* Контейнер для кнопки, чтобы она была более заметна */
+.forecast-button-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.forecast-button {
+  font-size: 1.1rem;
+  padding: 12px 24px;
+}
+
+/* Размещение секций в верхней части */
+.forecast-top {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* Для секции 3 – нижние секции, размещенные в две части */
+.forecast-bottom {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.forecast-section,
+.forecast-half {
+  padding: 10px;
+  border: 1px solid transparent;
+}
+
+.forecast-section h4,
+.forecast-half h4 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* Адаптивные настройки для вкладки Прогноз (при необходимости) */
+@media (max-width: 768px) {
+
+  .forecast-top,
+  .forecast-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark mode стили для таблиц */
+.dark-mode .data-table th,
+.dark-mode .data-table td {
+  border: 1px solid #555;
+}
+
+.dark-mode .forecast-tab h3,
+.dark-mode .forecast-section h4,
+.dark-mode .forecast-half h4 {
+  color: #ccc;
+}
+
+.tab-content {
+  position: relative;
+  margin-top: 16px; /* Увеличиваем отступ между вкладками и контентом */
+}
+
+.tab-panel {
+  width: 100%;
+  height: 100%;
+}
+
+.hidden {
+  display: none;
+}

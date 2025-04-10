@@ -1,0 +1,55 @@
+.navbar-custom {
+    background-color: #343a40;
+}
+
+.navbar-custom .nav-link {
+    color: #fff;
+}
+
+.navbar-custom .nav-link:hover {
+    color: #ddd;
+}
+
+.navbar-custom .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-custom .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%287, 7, 7, 0.7%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-custom .navbar-collapse {
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.navbar-custom .ml-auto {
+    margin-left: auto;
+}
+
+.navbar-custom .active .nav-link {
+    color: #000;
+    font-weight: bold;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+    transition: background-image 0.3s ease;
+}
+
+.icon.sun {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="yellow"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M16.36 16.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M16.36 7.64l1.42-1.42"/></svg>');
+}
+
+.icon.moon {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="silver"><path d="M21.72 13.14a1 1 0 0 0-1.16-.3 9 9 0 0 1-11.2-11.2 1 1 0 0 0-.3-1.16 1 1 0 0 0-1.45.32A10 10 0 1 0 21.4 14.6a1 1 0 0 0-.32-1.46 10 10 0 0 0 .64 0z"/></svg>');
+}

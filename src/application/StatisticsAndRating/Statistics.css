@@ -1,0 +1,37 @@
+/* Основные стили для контейнера */
+.statistics-container {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1200px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Стиль для элементов summary-item */
+.summary-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--summary-bg);
+    border: 1px solid var(--summary-border);
+}
+
+/* Темные и светлые переменные */
+:root {
+    --bg-color: #f8f9fa;
+    --text-color: #000;
+    --summary-bg: #ffffff;
+    --summary-border: #ddd;
+}
+
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --summary-bg: #1e1e1e;
+    --summary-border: #333;
+}
