@@ -13,7 +13,7 @@ import FarmChouse from './application/Pin/FarmChouse'
 import Animals from './application/Animals/Animals'
 import Pin from './application/Pin/Pin'
 import Reports from './application/Reports/Reports'
-
+import axios from 'axios';
 import Statistics from './application/StatisticsAndRating/Statistics';
 import BooksApp from './application/Books/Books';
 
@@ -22,35 +22,53 @@ import './App2.css';
 const AppContent = () => {
     const { isDarkMode } = useTheme();
     const [token, setToken] = useState(localStorage.getItem('authToken'));
+    const [username, setUsername] = useState(localStorage.getItem('authUsername'));
+
 
     useEffect(() => {
-        if (token) {
-            localStorage.setItem('authToken', token);
-        } else {
-            localStorage.removeItem('authToken');
-        }
-    }, [token]);
+        const validateToken = async () => {
+            if (!token) return;
+    
+            try {
+                await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, {
+                    headers: {
+                        'Authorization': `Token ${token}`
+                    }
+                });
+            } catch (error) {
+                console.warn("Невалидный токен, выполняется выход...");
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('authUsername');
+                setToken(null);
+            }
+        };
+    
+        validateToken();
+    }, []);
+    
 
     return (
         <div className={`app-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-            <CustomNavbar token={token} />
+            <CustomNavbar token={token} username={username}/>
             <div className="content">
                 <Routes>
                     <Route path="/" element={<HomePage />} />
+                    {token && (
+                        <>
+                            <Route path="/animals" element={<Animals isDarkMode={isDarkMode} />} />
 
-                    <Route path="/animals" element={<Animals isDarkMode={isDarkMode} />} />
+                            <Route path="/pin" element={<FarmChouse />} />
+                            <Route path="/data-pin" element={<Pin />} />
 
-                    <Route path="/pin" element={<FarmChouse />} />
-                    <Route path="/data-pin" element={<Pin />} />
+                            <Route path="/reports" element={<Reports />} />
 
-                    <Route path="/reports" element={<Reports />} />
+                            <Route path="/statistics" element={<Statistics />} />
 
-                    <Route path="/statistics" element={<Statistics />} />
-
-                    <Route path="/*" element={<BooksApp />} />
-
-                    <Route path="/login" element={<Login setToken={setToken} />} />
-                    <Route path="/logout" element={<Logout token={token} setToken={setToken} />} />
+                            <Route path="/*" element={<BooksApp />} />
+                        </>
+                    )}
+                    <Route path="/login" element={<Login setToken={setToken} setUserName={setUsername} />} />
+                    <Route path="/logout" element={<Logout token={token} setToken={setToken} setUsername={setUsername} />} />
                 </Routes>
             </div>
             <Footer />

@@ -1,7 +1,7 @@
 .animal-details-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 5px;
   color: inherit;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .details-content {
-  padding: 20px;
+  padding: 5px;
 }
 
 .details-content h2 {
@@ -82,6 +82,7 @@
   display: flex;
   justify-content: space-around;
   gap: 20px;
+  flex-wrap: wrap; /* Чтобы контейнеры выстраивались в столбик на малых экранах */
 }
 
 .pedigree-column {
@@ -208,11 +209,19 @@
   .pedigree-column {
     width: 100%;
   }
+  .sub-parent {
+    font-size: 1rem;
+  }
+
+  .pedigree-subrow {
+    flex-direction: column; /* Подродители будут располагаться вертикально */
+    align-items: center;
+  }
 }
 
 .tabs-container {
   margin-top: 20px;
-  border-radius: 8px;
+  border-radius: 3px;
 }
 
 .tabs-header {
@@ -221,7 +230,7 @@
 }
 
 .tab {
-  padding: 10px 20px;
+  padding: 2px;
   cursor: pointer;
   font-size: 1.2rem;
   color: #007BFF;
@@ -246,7 +255,7 @@
 }
 
 .tabs-content {
-  padding: 20px;
+  padding: 5px;
 }
 
 .additional-info {
@@ -309,5 +318,10 @@
 @media(max-width: 768px) {
   .additional-info-grid {
     grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .additional-info h3 {
+    font-size: 16px; /* Уменьшаем шрифт на маленьких экранах */
   }
 }

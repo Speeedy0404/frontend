@@ -10,6 +10,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close'
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 
 import {
   Typography,
@@ -18,7 +19,7 @@ import {
 
 import { useTheme as useCustomTheme } from "../ThemeContext"; // Импортируем хук useTheme
 
-const AnimalDetails = ({ animalType, animaluniq_key, onBack }) => {
+const AnimalDetails = ({ animalType, animaluniq_key, onBack, pin, chartData }) => {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedIndivNumber, setSelectedIndivNumber] = useState('');
@@ -27,6 +28,7 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack }) => {
   const [activeTab, setActiveTab] = useState("main");
   const [loading, setLoading] = useState(true);
   const { isDarkMode } = useCustomTheme();
+  const [imageSrc, setImageSrc] = useState(null);
 
   useEffect(() => {
 
@@ -38,6 +40,10 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack }) => {
             ? `get-info-cow-animal/?uniq_key=${animaluniq_key}`
             : `get-info-animal/?uniq_key=${animaluniq_key}`;
         const response = await axiosInstance.post(endpoint);
+        // Если фото есть, установим его URL
+        if (response.data.photo) {
+          setImageSrc(`${process.env.REACT_APP_API_URL}${response.data.photo}/`);
+        }
         setAnimalData(response.data);
         setLoading(false);
       } catch (error) {
@@ -144,13 +150,14 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack }) => {
       )}
       {animalData && !animalData.Answer ? (
         <div className="animal-details-card">
-          <img
-            src={animalData.image || 'https://expo.vdnh.ru/upload/iblock/a6a/02.jpg'}
-            alt={animalData.klichka || 'Фотография'}
-            className="animal-thumbnail"
-            onClick={() => setIsImageModalOpen(true)}
-          />
-
+          {!pin && (
+            <img
+              src={imageSrc}
+              alt={animalData?.klichka || 'Фотография'}
+              className="animal-thumbnail"
+              onClick={() => setIsImageModalOpen(true)}
+            />
+          )}
           {/* Вкладки */}
           <div className="tabs-container">
             <div className="tabs-header">
@@ -230,11 +237,41 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack }) => {
                       </div>
                     </div>
                   )}
+
+                  {chartData && (
+                    <div className="additional-info">
+                      <h3>Паучья диаграмма</h3>
+                      <Box sx={{ mt: 4, height: 300 }}>
+                        <ResponsiveContainer width="100%" height="100%">
+                          <RadarChart data={chartData} outerRadius={window.innerWidth < 600 ? 90 : 130}>
+                            <PolarGrid />
+                            <PolarAngleAxis
+                              dataKey="subject"
+                              stroke={isDarkMode ? "#fff" : "#333"}
+                              tick={{ fontSize: window.innerWidth < 600 ? 10 : 12 }}
+                            />
+                            <PolarRadiusAxis
+                              stroke={isDarkMode ? "#fff" : "#333"}
+                              tick={{ fontSize: window.innerWidth < 600 ? 10 : 12 }}
+                            />
+                            <Radar
+                              name="Показатели"
+                              dataKey="value"
+                              stroke={isDarkMode ? "#90caf9" : "#1976d2"}
+                              fill={isDarkMode ? "#90caf9" : "#1976d2"}
+                              fillOpacity={0.6}
+                            />
+                          </RadarChart>
+                        </ResponsiveContainer>
+                      </Box>
+                    </div>
+                  )}
+
                 </div>
               ) : (
                 <div className="extra-content">
                   {animalData.linear_profile && animalType === "bull" && (
-                    <ParameterChart data={animalData.linear_profile} klichka={animalData.info.klichka}/>
+                    <ParameterChart data={animalData.linear_profile} klichka={animalData.info.klichka} />
                   )}
                   {animalData.exterior_assessment && animalType === "cow" && (
                     <ConformationList data={animalData.exterior_assessment} />
@@ -249,9 +286,10 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack }) => {
       )}
       {isImageModalOpen && (
         <ImageModal
-          imageSrc={animalData.image || 'https://expo.vdnh.ru/upload/iblock/a6a/02.jpg'}
+          imageSrc={imageSrc}
           onClose={() => setIsImageModalOpen(false)}
         />
+
       )}
       <Modal
         open={isModalOpen}
@@ -287,6 +325,7 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack }) => {
           <AnimalDetails
             animalType={selectedAnimalType}
             animaluniq_key={selectedIndivNumber}
+            pin={pin}
           />
         </Box>
       </Modal>

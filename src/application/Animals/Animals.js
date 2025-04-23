@@ -63,6 +63,7 @@ const Animals = ({ isDarkMode }) => {
         animalType={selectedAnimal.animalType}
         animaluniq_key={selectedAnimal.uniq_key}
         onBack={handleBack}
+        pin={false}
       />
     );
   }
@@ -212,7 +213,7 @@ const Animals = ({ isDarkMode }) => {
                     key={animal.pk}
                     onClick={() => handleAnimalClick(animal)}
                   >
-                    <img src={animal.image} alt={animal.nickname || 'Фотография'} />
+                    {/* <img src={animal.image} alt={animal.nickname || 'Фотография'} /> */}
                     <div className="card-content">
                       <h3>{animal.klichka || 'Без клички'}</h3>
                       <p>

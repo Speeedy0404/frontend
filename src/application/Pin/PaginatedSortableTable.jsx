@@ -528,6 +528,7 @@ const PaginatedSortableTable = ({ select, data, columns, maxSelectable, onBindCh
           <AnimalDetails
             animalType={mode}
             animaluniq_key={selectedAnimal?.uniq_key}
+            pin={true}
           />
         </Box>
       </Modal>

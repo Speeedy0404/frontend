@@ -12,8 +12,9 @@ body {
 
 .content {
     flex: 1;
-    /* Убираем центрирование контента */
+    /* Отступ сверху под фиксированный Navbar */
     display: block;
+    padding-top: 56px;
 }
 
 .dark-mode {

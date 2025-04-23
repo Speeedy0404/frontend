@@ -101,7 +101,6 @@ const BindingTab = ({ farmName, farmCode }) => {
   const handleSubmitconsolidation = async (event) => {
     event.preventDefault();
     let payload; // Объявляем payload здесь
-    console.log(animalType)
     if (animalType === 'calves') {
       if (selectCalves.length === 0) {
         alert('Вы должны выбрать хотя бы одно животное.');

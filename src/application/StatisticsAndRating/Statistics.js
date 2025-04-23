@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../axiosConfig';
 import RatingTable from './RatingTable';
+import AnimalTable from './AnimalTable'
 import SimpleTable from '../Pin/SimpleTable';
 import './Statistics.css';
 import { useLocation } from 'react-router-dom';
@@ -14,6 +15,7 @@ const Statistics = () => {
     const [relative_breeding_value_of_milk_productivity, setRelativeBreedingValueOfMilkProductivity] = useState(null);
 
     const [ratingData, setRatingData] = useState(null);
+    const [ratingDataBull, setRatingDataBull] = useState(null);
     const [state, setState] = useState('statistics');
     const [count, setCount] = useState('');
     const [inAssessment, setInAssessment] = useState('');
@@ -65,92 +67,120 @@ const Statistics = () => {
             }
         }
     };
-
+    const handleGetRatingDataBull = async (event) => {
+        event.preventDefault();
+        setState('ratingBull')
+        if (ratingDataBull === null) {
+            try {
+                setLoading(true);
+                const response = await axiosInstance.get('rating-of-bull/');
+                if (response.data.bull_data) {
+                    setRatingDataBull(response.data.bull_data);
+                } else {
+                    console.log('Похоже, не удалось получить для рейтинга');
+                }
+            } catch (error) {
+                console.error('Ошибка отправки:', error);
+                alert('Произошла ошибка при отправке данных');
+            } finally {
+                setLoading(false);
+            }
+        }
+    };
     return (
-        <div className="statistics-container" data-theme={isDarkMode ? "dark" : "light"}>
+        <>
+            <div className="statistics-container" data-theme={isDarkMode ? "dark" : "light"}>
 
-            <div style={{ display: 'flex', alignItems: 'center', padding: '5px', flexDirection: 'row', gap: '10px', marginTop: '10px', marginBottom: '10px' }}>
-                <Button onClick={handleSetStateStatistics} variant="contained" style={{ marginBottom: '5px', width: '200px' }}>
-                    Статистика
-                </Button>
-                <Button onClick={handleGetRatingData} variant="contained" style={{ marginBottom: '5px', width: '200px' }}>
-                    Рейтинг хозяйств
-                </Button>
-            </div>
-            {loading && (
-                <div style={{ textAlign: 'center' }}>
-                    <Typography variant="h6">Загрузка ...</Typography>
-                    <CircularProgress />
+                <div style={{ display: 'flex', alignItems: 'center', padding: '5px', flexDirection: 'row', gap: '10px', marginTop: '10px', marginBottom: '10px' }}>
+                    <Button onClick={handleSetStateStatistics} variant="contained" style={{ marginBottom: '5px', width: '200px' }}>
+                        Статистика РБ
+                    </Button>
+                    <Button onClick={handleGetRatingData} variant="contained" style={{ marginBottom: '5px', width: '200px' }}>
+                        Рейтинг хозяйств
+                    </Button>
+                    <Button onClick={handleGetRatingDataBull} variant="contained" style={{ marginBottom: '5px', width: '200px' }}>
+                        Рейтинг быков
+                    </Button>
                 </div>
-            )}
-            {count && inAssessment && lac && breeding_value_of_milk_productivity && relative_breeding_value_of_milk_productivity && state === 'statistics' && (
-                <>
-                    <div className="summary-item">
-                        <strong>Коров всего:</strong> {count}
+                {loading && (
+                    <div style={{ textAlign: 'center' }}>
+                        <Typography variant="h6">Загрузка ...</Typography>
+                        <CircularProgress />
                     </div>
-                    <div className="summary-item">
-                        <strong>Коров в оценке:</strong> {inAssessment}
-                    </div>
+                )}
+                {count && inAssessment && lac && breeding_value_of_milk_productivity && relative_breeding_value_of_milk_productivity && state === 'statistics' && (
+                    <>
+                        <div className="summary-item">
+                            <strong>Коров всего:</strong> {count}
+                        </div>
+                        <div className="summary-item">
+                            <strong>Коров в оценке:</strong> {inAssessment}
+                        </div>
 
 
 
-                    <div className="tables-container">
-                        <div className="table-item">
-                            <h3>Молочная продуктивность</h3>
-                            <SimpleTable
-                                headers={[
-                                    { label: "Лактация", key: "lak" },
-                                    { label: "Кол-во", key: "count_u305" },
-                                    { label: "Удой кг", key: "avg_u305" },
-                                    { label: "Жир кг", key: "avg_j305kg" },
-                                    { label: "Жир %", key: "fat_percentage" },
-                                    { label: "Белок кг", key: "avg_b305kg" },
-                                    { label: "Белок %", key: "protein_percentage" }
-                                ]}
-                                customData={lac}
-                                rows={3}
-                            />
+                        <div className="tables-container">
+                            <div className="table-item">
+                                <h3>Молочная продуктивность</h3>
+                                <SimpleTable
+                                    headers={[
+                                        { label: "Лактация", key: "lak" },
+                                        { label: "Кол-во", key: "count_u305" },
+                                        { label: "Удой кг", key: "avg_u305" },
+                                        { label: "Жир кг", key: "avg_j305kg" },
+                                        { label: "Жир %", key: "fat_percentage" },
+                                        { label: "Белок кг", key: "avg_b305kg" },
+                                        { label: "Белок %", key: "protein_percentage" }
+                                    ]}
+                                    customData={lac}
+                                    rows={3}
+                                />
+                            </div>
+                            <div className="table-item">
+                                <h3>Племенная ценность молочной продуктивности</h3>
+                                <SimpleTable
+                                    headers={[
+                                        { label: "Показатель", key: "param" },
+                                        { label: "Кол-во", key: "count" },
+                                        { label: "Сред.", key: "avg" },
+                                        { label: "Мин.", key: "min" },
+                                        { label: "Макс.", key: "max" },
+                                        { label: "Сигма", key: "stddev" },
+                                        { label: "Медиана", key: "median" },
+                                    ]}
+                                    customData={breeding_value_of_milk_productivity}
+                                    rows={9}
+                                />
+                            </div>
+                            <div className="table-item">
+                                <h3>Относительная племенная ценность молочной продуктивности</h3>
+                                <SimpleTable
+                                    headers={[
+                                        { label: "Показатель", key: "param" },
+                                        { label: "Кол-во", key: "count" },
+                                        { label: "Сред.", key: "avg" },
+                                        { label: "Мин.", key: "min" },
+                                        { label: "Макс.", key: "max" },
+                                        { label: "Сигма", key: "stddev" },
+                                        { label: "Медиана", key: "median" },
+                                    ]}
+                                    customData={relative_breeding_value_of_milk_productivity}
+                                    rows={10}
+                                />
+                            </div>
                         </div>
-                        <div className="table-item">
-                            <h3>Племенная ценность молочной продуктивности</h3>
-                            <SimpleTable
-                                headers={[
-                                    { label: "Показатель", key: "param" },
-                                    { label: "Кол-во", key: "count" },
-                                    { label: "Сред.", key: "avg" },
-                                    { label: "Мин.", key: "min" },
-                                    { label: "Макс.", key: "max" },
-                                    { label: "Сигма", key: "stddev" },
-                                    { label: "Медиана", key: "median" },
-                                ]}
-                                customData={breeding_value_of_milk_productivity}
-                                rows={9}
-                            />
-                        </div>
-                        <div className="table-item">
-                            <h3>Относительная племенная ценность молочной продуктивности</h3>
-                            <SimpleTable
-                                headers={[
-                                    { label: "Показатель", key: "param" },
-                                    { label: "Кол-во", key: "count" },
-                                    { label: "Сред.", key: "avg" },
-                                    { label: "Мин.", key: "min" },
-                                    { label: "Макс.", key: "max" },
-                                    { label: "Сигма", key: "stddev" },
-                                    { label: "Медиана", key: "median" },
-                                ]}
-                                customData={relative_breeding_value_of_milk_productivity}
-                                rows={10}
-                            />
-                        </div>
-                    </div>
-                </>
+                    </>
+                )}
+                {ratingData && state === 'rating' && (
+                    <RatingTable ratingData={ratingData} isDarkMode={isDarkMode} />
+                )}
+            </div>
+
+            {ratingDataBull && state === 'ratingBull' && (
+                <AnimalTable data={ratingDataBull} isDarkMode={isDarkMode} />
             )}
-            {ratingData && state === 'rating' && (
-                <RatingTable ratingData={ratingData} isDarkMode={isDarkMode} />
-            )}
 
-        </div>
+        </>
     );
 };
 
