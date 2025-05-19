@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../axiosConfig';
-import AnimalDetails from './AnimalDetails'; // Импорт компонента деталей
+import AnimalDetails from './AnimalDetails';
 import './Animals.css';
 import { Pagination, styled, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
+import { Search, PawPrint, SlidersHorizontal } from 'lucide-react';
 
 const Animals = ({ isDarkMode }) => {
-  const [animalType, setAnimalType] = useState('cow'); // 'cow' или 'bull'
+  const [animalType, setAnimalType] = useState('cow');
   const [searchField, setSearchField] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [results, setResults] = useState([]);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
-  const [loading, setLoading] = useState(false); // Состояние для отображения загрузки
-  const [currentPage, setCurrentPage] = useState(1); // Пагинация
-  const [itemsPerPage, setItemsPerPage] = useState(6); // Количество элементов на странице, по умолчанию 10
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
 
   const handleAnimalTypeChange = (e) => {
     setAnimalType(e.target.value);
     setSearchField('');
     setSearchValue('');
     setResults([]);
-    setCurrentPage(1)
+    setCurrentPage(1);
   };
 
   const handleSearchFieldChange = (e) => {
@@ -29,8 +30,8 @@ const Animals = ({ isDarkMode }) => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    setLoading(true); // Начало загрузки
-    setCurrentPage(1)
+    setLoading(true);
+    setCurrentPage(1);
     try {
       const endpoint =
         animalType === 'cow'
@@ -41,7 +42,7 @@ const Animals = ({ isDarkMode }) => {
     } catch (error) {
       console.error('Ошибка получения подсказок', error);
     } finally {
-      setLoading(false); // Конец загрузки
+      setLoading(false);
     }
   };
 
@@ -68,38 +69,34 @@ const Animals = ({ isDarkMode }) => {
     );
   }
 
-  // Вычисление начального и конечного индекса для пагинации
   const indexOfLastAnimal = currentPage * itemsPerPage;
   const indexOfFirstAnimal = indexOfLastAnimal - itemsPerPage;
   const currentAnimals = results.slice(indexOfFirstAnimal, indexOfLastAnimal);
 
-  // Функции для переключения страниц
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
 
-  // Функция для изменения количества элементов на странице
   const handleItemsPerPageChange = (event) => {
     setItemsPerPage(event.target.value);
-    setCurrentPage(1); // Сбросить на первую страницу при изменении количества элементов на странице
+    setCurrentPage(1);
   };
 
-  // Стилизация пагинации
   const StyledPagination = styled(Pagination)(({ isDarkMode }) => ({
     display: 'flex',
     justifyContent: 'center',
     marginTop: '20px',
     '& .MuiPaginationItem-root': {
-      color: isDarkMode ? '#fff' : 'inherit', // Белые стрелки в темной теме
+      color: isDarkMode ? '#fff' : 'inherit',
     },
     '& .MuiPaginationItem-ellipsis, & .MuiPaginationItem-previousNext, & .MuiPaginationItem-firstLast': {
-      color: isDarkMode ? '#fff' : 'inherit', // Белые стрелки в темной теме
+      color: isDarkMode ? '#fff' : 'inherit',
     },
   }));
-
+  
   return (
     <div className="animals-container">
-      <h2>Поиск животных</h2>
+      <h2><PawPrint size={24} style={{ marginRight: '8px', verticalAlign: 'middle' }} /> Поиск животных</h2>
       <form className="search-form" onSubmit={handleSearch}>
         <div className="form-group">
           <label>Тип животного:</label>
@@ -126,7 +123,7 @@ const Animals = ({ isDarkMode }) => {
         </div>
 
         <div className="form-group">
-          <label>Поле поиска:</label>
+          <label><SlidersHorizontal size={16} style={{ marginRight: '6px' }} />Поле поиска:</label>
           <select value={searchField} onChange={handleSearchFieldChange} required>
             <option value="" disabled>
               Выберите поле
@@ -149,11 +146,10 @@ const Animals = ({ isDarkMode }) => {
         </div>
 
         <button type="submit" className="search-button">
-          Найти
+          <Search size={16} style={{ marginRight: '8px' }} /> Найти
         </button>
       </form>
 
-      {/* Анимация загрузки */}
       {loading && (
         <div className="loading-spinner">
           <div className="spinner"></div>
@@ -168,9 +164,9 @@ const Animals = ({ isDarkMode }) => {
               <FormControl sx={{ minWidth: 120 }} margin="normal">
                 <InputLabel
                   sx={{
-                    color: isDarkMode ? '#fff' : '#000', // Цвет лейбла в зависимости от темы
+                    color: isDarkMode ? '#fff' : '#000',
                     '&.Mui-focused': {
-                      color: isDarkMode ? '#fff' : '#000', // При фокусе сохраняем цвет
+                      color: isDarkMode ? '#fff' : '#000',
                     },
                   }}
                 >
@@ -183,19 +179,19 @@ const Animals = ({ isDarkMode }) => {
                   MenuProps={{
                     PaperProps: {
                       sx: {
-                        backgroundColor: isDarkMode ? '#333' : '#fff', // Фон меню
-                        color: isDarkMode ? '#fff' : '#000', // Цвет текста в меню
+                        backgroundColor: isDarkMode ? '#333' : '#fff',
+                        color: isDarkMode ? '#fff' : '#000',
                       },
                     },
                   }}
                   sx={{
-                    backgroundColor: isDarkMode ? '#333' : '#fff', // Цвет фона для Select
-                    color: isDarkMode ? '#fff' : '#000', // Цвет текста для Select
+                    backgroundColor: isDarkMode ? '#333' : '#fff',
+                    color: isDarkMode ? '#fff' : '#000',
                     '& .MuiSelect-icon': {
-                      color: isDarkMode ? '#fff' : '#000', // Цвет стрелки
+                      color: isDarkMode ? '#fff' : '#000',
                     },
                     '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: isDarkMode ? '#fff' : '#000', // Обводка
+                      borderColor: isDarkMode ? '#fff' : '#000',
                     },
                   }}
                 >
@@ -213,15 +209,10 @@ const Animals = ({ isDarkMode }) => {
                     key={animal.pk}
                     onClick={() => handleAnimalClick(animal)}
                   >
-                    {/* <img src={animal.image} alt={animal.nickname || 'Фотография'} /> */}
                     <div className="card-content">
                       <h3>{animal.klichka || 'Без клички'}</h3>
-                      <p>
-                        <strong>Инд. номер:</strong> {animal.uniq_key}
-                      </p>
-                      <p>
-                        <strong>Раб. номер:</strong> {animal.nomer}
-                      </p>
+                      <p><strong>Инд. номер:</strong> {animal.uniq_key}</p>
+                      <p><strong>Раб. номер:</strong> {animal.nomer}</p>
                     </div>
                   </div>
                 ))}

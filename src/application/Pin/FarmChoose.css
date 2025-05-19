@@ -1,102 +1,115 @@
 .farmchouse-container {
-  padding: 20px;
+  padding: 24px;
   max-width: 800px;
   margin: 0 auto;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #1c1c1c;
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 30px;
-  font-size: 2.5rem;
-  color: #333;
+  margin-bottom: 32px;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #222;
 }
 
 .farmchouse-form {
-  background-color: #f9f9f9;
-  padding: 30px;
-  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
   margin-bottom: 40px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease;
 }
 
 .dark-mode .farmchouse-form {
-  background-color: #1e1e1e;
-  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+  background-color: #2c2c2c;
+  box-shadow: 0 10px 15px rgba(255, 255, 255, 0.05);
 }
 
 .farmchouse-form .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 8px;
-  font-size: 1.1rem;
+  margin-bottom: 10px;
+  font-size: 1rem;
   font-weight: 600;
+  color: #555;
 }
 
 .radio-group {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   align-items: center;
 }
 
 .radio-label {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 1.1rem;
+  gap: 8px;
+  font-size: 1rem;
   cursor: pointer;
+  color: #333;
 }
 
 .farmchouse-form input[type="text"] {
   width: 100%;
-  padding: 10px;
+  padding: 12px 16px;
   font-size: 1rem;
-  box-sizing: border-box;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
+  background-color: #fafafa;
+  transition: border-color 0.2s;
+}
+
+.farmchouse-form input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 .search-button,
 .confirm-button {
+  display: inline-flex;
+  align-items: center;
   padding: 12px 20px;
-  border: none;
   font-size: 1rem;
-  background-color: #007BFF;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
   color: #fff;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
 }
 
 .search-button:hover,
 .confirm-button:hover {
   background-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 86, 179, 0.3);
 }
 
 .farm-results-list {
-  margin-top: 20px;
+  margin-top: 24px;
   max-height: 300px;
   overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
 }
 
 .farm-result-item {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
   cursor: pointer;
   font-size: 1rem;
-}
-
-.farm-result-item:last-child {
-  border-bottom: none;
+  transition: background-color 0.2s, transform 0.2s;
 }
 
 .farm-result-item:hover {
-  background-color: #f0f0f0;
+  background-color: #f8f9fa;
+  transform: scale(1.01);
 }
 
 .farm-result-item.selected {
@@ -104,25 +117,24 @@ h2 {
 }
 
 .selected-farm {
-  margin-top: 20px;
-  padding: 12px;
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  margin-top: 24px;
+  padding: 16px;
+  background-color: #f1f3f5;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
   font-size: 1.1rem;
 }
 
-/* Спиннер */
 .loading-spinner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
 .spinner {
-  border: 4px solid rgba(0, 0, 0, 0.2);
-  border-top: 4px solid #007BFF;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #007bff;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -130,18 +142,12 @@ h2 {
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-/* Dark mode стили */
 .dark-mode {
-  background-color: #333;
+  background-color: #1e1e1e;
   color: #fff;
 }
 
@@ -150,9 +156,9 @@ h2 {
 }
 
 .dark-mode .farmchouse-form input[type="text"] {
-  background-color: #555;
+  background-color: #444;
   color: #fff;
-  border: 1px solid #777;
+  border: 1px solid #666;
 }
 
 .dark-mode .search-button,
@@ -174,14 +180,14 @@ h2 {
 }
 
 .dark-mode .farm-result-item:hover {
-  background-color: #444;
+  background-color: #3a3a3a;
 }
 
 .dark-mode .farm-result-item.selected {
-  background-color: #777;
+  background-color: #555;
 }
 
 .dark-mode .selected-farm {
-  background-color: #444;
-  border: 1px solid #666;
+  background-color: #3a3a3a;
+  border: 1px solid #555;
 }

@@ -5,12 +5,14 @@ import {
     Alert,
 } from '@mui/material';
 import './Login.css';
+import LoadingDots from '../LoadingDots';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Login = ({ setToken, setUserName }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -18,22 +20,31 @@ const Login = ({ setToken, setUserName }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setLoading(true);
 
         try {
             const response = await axios.post(`${apiUrl}/auth/token/login/`, {
                 username,
                 password,
             });
+
             setToken(response.data.auth_token);
             localStorage.setItem('authToken', response.data.auth_token);
-            localStorage.setItem('authUsername', username); // сохраняем имя
-            setUserName(username); // передаём наверх
+            localStorage.setItem('authUsername', username);
+            setUserName(username);
             navigate('/');
         } catch (error) {
             console.error('Ошибка авторизации', error);
-            setError('Неверное имя пользователя или пароль.');
+            if (error.response && error.response.status === 400) {
+                setError('Неверное имя пользователя или пароль.');
+            } else {
+                setError('Ошибка сети или сервера. Попробуйте снова.');
+            }
+        } finally {
+            setLoading(false);
         }
     };
+
 
     return (
 
@@ -74,7 +85,13 @@ const Login = ({ setToken, setUserName }) => {
                         </span>
                     </div>
                 </div>
-                <button type="submit" className="login-button">Войти</button>
+                <button
+                    type="submit"
+                    className="login-button"
+                    disabled={loading}
+                >
+                    {loading ? <LoadingDots /> : 'Войти'}
+                </button>
             </form>
         </div>
     );

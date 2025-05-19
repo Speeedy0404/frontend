@@ -9,7 +9,7 @@ import { ThemeProvider, useTheme } from './application/ThemeContext';
 import CustomNavbar from './application/MainPage/Navbar/Navbar';
 import Footer from './application/MainPage/Footer/Footer';
 import HomePage from './application/MainPage/HomePage/HomePage';
-import FarmChouse from './application/Pin/FarmChouse'
+import FarmChoose from './application/Pin/FarmChoose'
 import Animals from './application/Animals/Animals'
 import Pin from './application/Pin/Pin'
 import Reports from './application/Reports/Reports'
@@ -44,7 +44,7 @@ const AppContent = () => {
         };
     
         validateToken();
-    }, []);
+    }, [token]);
     
 
     return (
@@ -57,7 +57,7 @@ const AppContent = () => {
                         <>
                             <Route path="/animals" element={<Animals isDarkMode={isDarkMode} />} />
 
-                            <Route path="/pin" element={<FarmChouse />} />
+                            <Route path="/pin" element={<FarmChoose />} />
                             <Route path="/data-pin" element={<Pin />} />
 
                             <Route path="/reports" element={<Reports />} />

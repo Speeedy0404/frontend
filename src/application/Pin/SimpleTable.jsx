@@ -1,6 +1,7 @@
 import React from 'react';
 import './Pin.css';
-
+import Tooltip from '@mui/material/Tooltip';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const formatNumber = (value) => {
   const number = parseFloat(value);
@@ -38,13 +39,36 @@ const SimpleTable = ({ headers, rows, customData }) => {
   return (
     <div className="table-container simple-table">
       <table className="data-table">
+        
         <thead>
           <tr>
-            {headers.map((h, idx) => (
-              <th key={idx}>{h.label}</th>
-            ))}
+            {headers.map((h, idx) => {
+              const isTruncated = h.label.length > 30;
+              const displayText = isTruncated ? h.label.slice(0, 24) + '…' : h.label;
+
+              return (
+                <th key={idx}>
+                  <Tooltip title={h.label}>
+                    <span style={{ cursor: isTruncated ? 'help' : 'default' }}>{displayText}</span>
+                  </Tooltip>
+                  {isTruncated && (
+                    <InfoOutlinedIcon
+                      onClick={() => alert(h.label)}
+                      style={{
+                        fontSize: 16,
+                        marginLeft: 6,
+                        color: '#888',
+                        cursor: 'pointer',
+                        verticalAlign: 'middle'
+                      }}
+                    />
+                  )}
+                </th>
+              );
+            })}
           </tr>
         </thead>
+
         <tbody>
           {data.map((row, idx) => (
             <tr key={idx}>

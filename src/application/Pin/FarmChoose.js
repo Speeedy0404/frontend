@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../axiosConfig';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../../application/ThemeContext'; // скорректируйте путь
-import './FarmChouse.css';
+import { useTheme } from '../ThemeContext';
+import { Search, CheckCircle, List, Building2 } from 'lucide-react';
+import './FarmChoose.css';
 
-const FarmChouse = () => {
+const FarmChoose = () => {
   const [searchMethod, setSearchMethod] = useState('code');
   const [searchTerm, setSearchTerm] = useState('');
   const [farmResults, setFarmResults] = useState([]);
@@ -41,8 +42,8 @@ const FarmChouse = () => {
     setIsLoadingDetails(true);
     try {
       const response = await axiosInstance.post('individual-pin/', {
-        farmName: selectedFarm.norg, // значение названия хозяйства
-        farmCode: selectedFarm.korg, // значение кода хозяйства
+        farmName: selectedFarm.norg,
+        farmCode: selectedFarm.korg,
       });
 
       navigate('/data-pin', {
@@ -70,7 +71,7 @@ const FarmChouse = () => {
 
   return (
     <div className={`farmchouse-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-      <h2>Поиск хозяйства</h2>
+      <h2><Search size={24} style={{ marginRight: '8px', verticalAlign: 'middle' }} /> Поиск хозяйства</h2>
       <form onSubmit={handleSearch} className="farmchouse-form">
         <div className="form-group">
           <label className="form-label">Искать по:</label>
@@ -104,13 +105,15 @@ const FarmChouse = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Введите код или название хозяйства"
+            aria-label="Поисковое значение"
             required
           />
         </div>
-        <button type="submit" className="search-button">Найти</button>
+        <button type="submit" className="search-button">
+          <Search size={16} style={{ marginRight: '8px' }} /> Найти
+        </button>
       </form>
 
-      {/* Анимация загрузки при поиске */}
       {isLoadingSearch && (
         <div className="loading-spinner">
           <div className="spinner"></div>
@@ -118,35 +121,39 @@ const FarmChouse = () => {
         </div>
       )}
 
-      {/* Если элемент выбран – отображаем выбранное хозяйство и кнопку подтверждения */}
       {selectedFarm && (
         <div className="selected-farm">
           <p>
+            <Building2 size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
             Вы выбрали: <strong>{selectedFarm.norg}</strong> (Код: {selectedFarm.korg})
           </p>
           <button className="confirm-button" onClick={handleConfirmSelection}>
+            <CheckCircle size={16} style={{ marginRight: '8px' }} />
             {isLoadingDetails ? 'Загрузка данных...' : 'Подтвердить выбор'}
           </button>
         </div>
       )}
 
-      {/* Список результатов с прокруткой */}
       {!isLoadingSearch && farmResults.length > 0 && (
-        <div className="farm-results-list">
-          {farmResults.map((farm) => (
-            <div
-              key={farm.korg}
-              className={`farm-result-item ${selectedFarm && selectedFarm.korg === farm.korg ? 'selected' : ''}`}
-              onClick={() => handleSelectFarm(farm)}
-            >
-              <span className="farm-code">{farm.korg}</span> – <span className="farm-name">{farm.norg}</span>
-            </div>
-          ))}
-        </div>
+        <>
+          <h3 style={{ display: 'flex', alignItems: 'center', marginTop: '20px', fontSize: '1.25rem' }}>
+            <List size={20} style={{ marginRight: '8px' }} /> Найденные хозяйства
+          </h3>
+          <div className="farm-results-list">
+            {farmResults.map((farm) => (
+              <div
+                key={farm.korg}
+                className={`farm-result-item ${selectedFarm && selectedFarm.korg === farm.korg ? 'selected' : ''}`}
+                onClick={() => handleSelectFarm(farm)}
+              >
+                <span className="farm-code">{farm.korg}</span> – <span className="farm-name">{farm.norg}</span>
+              </div>
+            ))}
+          </div>
+        </>
       )}
-
     </div>
   );
 };
 
-export default FarmChouse;
+export default FarmChoose;

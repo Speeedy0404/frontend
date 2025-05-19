@@ -30,9 +30,9 @@ const InfoTab = ({ lac, breeding_value_of_milk_productivity, relative_breeding_v
             headers={[
               { label: "Показатель", key: "param" },
               { label: "Кол-во", key: "count" },
-              { label: "Сред.", key: "avg" },
-              { label: "Мин.", key: "min" },
-              { label: "Макс.", key: "max" },
+              { label: "Сред", key: "avg" },
+              { label: "Мин", key: "min" },
+              { label: "Макс", key: "max" },
               { label: "Сигма", key: "stddev" },
               { label: "Медиана", key: "median" },
             ]}
@@ -46,9 +46,9 @@ const InfoTab = ({ lac, breeding_value_of_milk_productivity, relative_breeding_v
             headers={[
               { label: "Показатель", key: "param" },
               { label: "Кол-во", key: "count" },
-              { label: "Сред.", key: "avg" },
-              { label: "Мин.", key: "min" },
-              { label: "Макс.", key: "max" },
+              { label: "Сред", key: "avg" },
+              { label: "Мин", key: "min" },
+              { label: "Макс", key: "max" },
               { label: "Сигма", key: "stddev" },
               { label: "Медиана", key: "median" },
             ]}

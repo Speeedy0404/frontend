@@ -94,9 +94,13 @@ const BindingTab = ({ farmName, farmCode }) => {
   }, [selectCow, selectCalves]); // Следим за изменениями в этих состояниях
 
   useEffect(() => {
-    setSelectedBull("")
-    setRowsPerPage(5)
-  }, [inbredAnimals]); // Следим за изменениями в этих состояниях
+    const bullExists = inbredAnimals.some(animal => animal.bull === selectedBull);
+    if (!bullExists) {
+      setSelectedBull("");
+    }
+    setPage(0)
+  }, [inbredAnimals, selectedBull]);
+
 
   const handleSubmitconsolidation = async (event) => {
     event.preventDefault();
@@ -790,6 +794,8 @@ const BindingTab = ({ farmName, farmCode }) => {
                       rowsPerPage={rowsPerPage}
                       onPageChange={(e, newPage) => setPage(newPage)}
                       rowsPerPageOptions={[5, 10, 20]}
+                      labelRowsPerPage="Строк на странице:"
+                      labelDisplayedRows={({ from, to, count }) => `${from}-${to} из ${count}`}
                       onRowsPerPageChange={(e) => {
                         setRowsPerPage(parseInt(e.target.value, 10));
                         setPage(0);

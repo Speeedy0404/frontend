@@ -11,6 +11,9 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
+import { Hash, Calendar, MapPin, GitBranch, Droplet, Badge, Info, BarChart3 } from 'lucide-react';
+
+
 
 import {
   Typography,
@@ -19,7 +22,7 @@ import {
 
 import { useTheme as useCustomTheme } from "../ThemeContext"; // Импортируем хук useTheme
 
-const AnimalDetails = ({ animalType, animaluniq_key, onBack, pin, chartData }) => {
+const AnimalDetails = ({ animalType, animaluniq_key, onBack, pin }) => {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedIndivNumber, setSelectedIndivNumber] = useState('');
@@ -165,13 +168,13 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack, pin, chartData }) =
                 className={`tab ${activeTab === "main" ? "active" : ""}`}
                 onClick={() => setActiveTab("main")}
               >
-                Основная информация
+                <Info size={16} style={{ marginRight: 6 }} />Основная информация
               </div>
               <div
                 className={`tab ${activeTab === "extra" ? "active" : ""}`}
                 onClick={() => setActiveTab("extra")}
               >
-                {animalType === "bull" ? "Линейный профиль" : "Оценка экстерьера"}
+                <BarChart3 size={16} style={{ marginRight: 6 }} />{animalType === "bull" ? "Линейный профиль" : "Оценка экстерьера"}
               </div>
             </div>
             <div className="tabs-content">
@@ -179,10 +182,10 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack, pin, chartData }) =
                 <div className="details-content">
                   <h2>{animalData.info.klichka || 'Без клички'}</h2>
                   <p>
-                    <strong>Индивидуальный номер:</strong> {animalData.info.uniq_key}
+                    <strong><Hash size={14} />Индивидуальный номер:</strong> {animalData.info.uniq_key}
                   </p>
                   <p>
-                    <strong>Рабочий номер:</strong> {animalData.info.nomer}
+                    <strong><Hash size={14} />Рабочий номер:</strong> {animalData.info.nomer}
                   </p>
                   {animalType === 'bull' && (
                     <p>
@@ -190,14 +193,14 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack, pin, chartData }) =
                     </p>
                   )}
                   <p>
-                    <strong>Дата рождения:</strong> {animalData.info.datarojd || 'Не указана'}
+                    <strong><Calendar size={14} />Дата рождения:</strong> {animalData.info.datarojd || 'Не указана'}
                   </p>
                   <p>
-                    <strong>Место рождения:</strong> {animalData.info.mestorojd || 'Не указано'}
+                    <strong><MapPin size={14} />Место рождения:</strong> {animalData.info.mestorojd || 'Не указано'}
                   </p>
                   {animalType === 'bull' && (
                     <p>
-                      <strong>Принадлежность:</strong> {animalData.info.ovner}
+                      <strong><MapPin size={14} />Принадлежность:</strong> {animalData.info.ovner}
                     </p>
                   )}
                   <p>
@@ -205,17 +208,17 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack, pin, chartData }) =
                   </p>
                   {animalType === 'bull' && (
                     <p>
-                      <strong>Семя:</strong> {animalData.info.sperma}
+                      <strong><Droplet size={14} />Семя:</strong> {animalData.info.sperma}
                     </p>
                   )}
                   <p>
-                    <strong>Ветка:</strong> {animalData.info.branch || 'Не указана'}
+                    <strong><GitBranch size={14} />Ветка:</strong> {animalData.info.branch || 'Не указана'}
                   </p>
                   <p>
-                    <strong>Линия:</strong> {animalData.info.lin || 'Не указана'}
+                    <strong><GitBranch size={14} />Линия:</strong> {animalData.info.lin || 'Не указана'}
                   </p>
                   <p>
-                    <strong>Порода:</strong> {animalData.info.por || 'Не указана'}
+                    <strong><Badge size={14} />Порода:</strong> {animalData.info.por || 'Не указана'}
                   </p>
 
                   {/* Родословная */}
@@ -237,36 +240,6 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack, pin, chartData }) =
                       </div>
                     </div>
                   )}
-
-                  {chartData && (
-                    <div className="additional-info">
-                      <h3>Паучья диаграмма</h3>
-                      <Box sx={{ mt: 4, height: 300 }}>
-                        <ResponsiveContainer width="100%" height="100%">
-                          <RadarChart data={chartData} outerRadius={window.innerWidth < 600 ? 90 : 130}>
-                            <PolarGrid />
-                            <PolarAngleAxis
-                              dataKey="subject"
-                              stroke={isDarkMode ? "#fff" : "#333"}
-                              tick={{ fontSize: window.innerWidth < 600 ? 10 : 12 }}
-                            />
-                            <PolarRadiusAxis
-                              stroke={isDarkMode ? "#fff" : "#333"}
-                              tick={{ fontSize: window.innerWidth < 600 ? 10 : 12 }}
-                            />
-                            <Radar
-                              name="Показатели"
-                              dataKey="value"
-                              stroke={isDarkMode ? "#90caf9" : "#1976d2"}
-                              fill={isDarkMode ? "#90caf9" : "#1976d2"}
-                              fillOpacity={0.6}
-                            />
-                          </RadarChart>
-                        </ResponsiveContainer>
-                      </Box>
-                    </div>
-                  )}
-
                 </div>
               ) : (
                 <div className="extra-content">
@@ -297,7 +270,7 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack, pin, chartData }) =
         aria-labelledby="animal-modal-title"
         aria-describedby="animal-modal-description"
       >
-        <Box
+ <Box
           className={isDarkMode ? 'dark-mode' : ''}
           sx={{
             width: { xs: '95%', sm: '80%' },
@@ -311,6 +284,7 @@ const AnimalDetails = ({ animalType, animaluniq_key, onBack, pin, chartData }) =
             position: 'relative',
           }}
         >
+
           <IconButton
             onClick={handleModalClose}
             sx={{

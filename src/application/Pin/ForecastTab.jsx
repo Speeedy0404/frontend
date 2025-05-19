@@ -71,7 +71,7 @@ const ForecastTab = ({ farmCode, forecasting_1, forecasting_2, forecasting_3, fo
       </div>
 
       <div className="forecast-top">
-        <div className="forecast-section">
+        <div className="forecast-section table-item">
           <SimpleTable headers={[
             { label: "Показатель", key: "param" },
             { label: "Средняя генетическая ценность коров", key: "avg" },
@@ -83,11 +83,11 @@ const ForecastTab = ({ farmCode, forecasting_1, forecasting_2, forecasting_3, fo
           />
 
         </div>
-        <div className="forecast-section">
+        <div className="forecast-section table-item">
           <SimpleTable headers={[
             { label: "Показатель", key: "param" },
             { label: "Средняя генетическая ценность коров", key: "avg" },
-            { label: "Превосходство быков", key: "bull_superiority" },
+            { label: "Среднее генетическое превосходство быков над коровами", key: "bull_superiority" },
             { label: "Прогнозируемый эффект селекции потомства от скрещивания закрепленных коров и быков на поколение", key: "predict" },
           ]}
             customData={forecasting_two}
@@ -96,7 +96,7 @@ const ForecastTab = ({ farmCode, forecasting_1, forecasting_2, forecasting_3, fo
         </div>
       </div>
       <div className="forecast-bottom">
-        <div className="forecast-half">
+        <div className="forecast-half table-item">
           <SimpleTable headers={[
             { label: "Показатель", key: "param" },
             { label: "Средняя генетическая ценность коров", key: "avg" },
@@ -104,7 +104,7 @@ const ForecastTab = ({ farmCode, forecasting_1, forecasting_2, forecasting_3, fo
             { label: "Прогнозируемый эффект селекции потомства от скрещивания закрепленных коров и быков на поколение", key: "predict" },
           ]} customData={forecasting_three} rows={9} />
         </div>
-        <div className="forecast-half">
+        <div className="forecast-half table-item">
           <SimpleTable headers={[
             { label: "Показатель", key: "param" },
             { label: "Средняя генетическая ценность коров", key: "avg" },

@@ -3,10 +3,13 @@ import axiosInstance from '../../axiosConfig';
 import RatingTable from './RatingTable';
 import AnimalTable from './AnimalTable'
 import SimpleTable from '../Pin/SimpleTable';
+import GeneticTrendsChart from './GeneticTrendsChart';
+import GeneticCombinedTables from './GeneticCombinedTables';
 import './Statistics.css';
 import { useLocation } from 'react-router-dom';
-import { Typography, CircularProgress, Button } from '@mui/material';
+import { Typography, CircularProgress, Button, Stack } from '@mui/material';
 import { useTheme as useCustomTheme } from "../ThemeContext"; // Импортируем хук useTheme
+import { BarChart3, Award, PawPrint } from 'lucide-react';
 
 const Statistics = () => {
     const [loading, setLoading] = useState(false);
@@ -47,6 +50,16 @@ const Statistics = () => {
         setState('statistics')
     }
 
+    const handleSetStateGenetics = (event) => {
+        event.preventDefault();
+        setState('genetics')
+    }
+
+    const handleSetStateThresholds = (event) => {
+        event.preventDefault();
+        setState('thresholds')
+    }
+
     const handleGetRatingData = async (event) => {
         event.preventDefault();
         setState('rating')
@@ -67,6 +80,7 @@ const Statistics = () => {
             }
         }
     };
+
     const handleGetRatingDataBull = async (event) => {
         event.preventDefault();
         setState('ratingBull')
@@ -87,19 +101,66 @@ const Statistics = () => {
             }
         }
     };
+    
     return (
         <>
             <div className="statistics-container" data-theme={isDarkMode ? "dark" : "light"}>
 
-                <div style={{ display: 'flex', alignItems: 'center', padding: '5px', flexDirection: 'row', gap: '10px', marginTop: '10px', marginBottom: '10px' }}>
-                    <Button onClick={handleSetStateStatistics} variant="contained" style={{ marginBottom: '5px', width: '200px' }}>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        gap: '10px',
+                        margin: '10px 0',
+                    }}
+                >
+
+
+                    <Button startIcon={<BarChart3 size={16} />} onClick={handleSetStateStatistics} variant={state === 'statistics' ? 'contained' : 'outlined'} style={{
+                        minWidth: '150px',
+                        flexGrow: 1,
+                        whiteSpace: 'nowrap',
+                        textTransform: 'none',
+                    }}>
                         Статистика РБ
                     </Button>
-                    <Button onClick={handleGetRatingData} variant="contained" style={{ marginBottom: '5px', width: '200px' }}>
+                    <Button
+                        startIcon={<Award size={16} />}
+                        onClick={handleGetRatingData}
+                        variant={state === 'rating' ? 'contained' : 'outlined'}
+                        style={{
+                            minWidth: '150px',
+                            flexGrow: 1,
+                            whiteSpace: 'nowrap',
+                            textTransform: 'none',
+                        }}
+                    >
                         Рейтинг хозяйств
                     </Button>
-                    <Button onClick={handleGetRatingDataBull} variant="contained" style={{ marginBottom: '5px', width: '200px' }}>
+                    <Button startIcon={<Award size={16} />} onClick={handleGetRatingDataBull} variant={state === 'ratingBull' ? 'contained' : 'outlined'} style={{
+                        minWidth: '150px',
+                        flexGrow: 1,
+                        whiteSpace: 'nowrap',
+                        textTransform: 'none',
+                    }}>
                         Рейтинг быков
+                    </Button>
+                    <Button startIcon={<BarChart3 size={16} />} onClick={handleSetStateGenetics} variant={state === 'genetics' ? 'contained' : 'outlined'} style={{
+                        minWidth: '150px',
+                        flexGrow: 1,
+                        whiteSpace: 'nowrap',
+                        textTransform: 'none',
+                    }}>
+                        Генетические тренды
+                    </Button>
+                    <Button startIcon={<BarChart3 size={16} />} onClick={handleSetStateThresholds} variant={state === 'thresholds' ? 'contained' : 'outlined'} style={{
+                        minWidth: '150px',
+                        flexGrow: 1,
+                        whiteSpace: 'nowrap',
+                        textTransform: 'none',
+                    }}>
+                        Пороговые баллы
                     </Button>
                 </div>
                 {loading && (
@@ -174,12 +235,18 @@ const Statistics = () => {
                 {ratingData && state === 'rating' && (
                     <RatingTable ratingData={ratingData} isDarkMode={isDarkMode} />
                 )}
-            </div>
+            </div >
 
             {ratingDataBull && state === 'ratingBull' && (
                 <AnimalTable data={ratingDataBull} isDarkMode={isDarkMode} />
+            )
+            }
+            {state === 'genetics' && (
+                <GeneticTrendsChart />
             )}
-
+            {state === 'thresholds' && (
+                <GeneticCombinedTables />
+            )}
         </>
     );
 };

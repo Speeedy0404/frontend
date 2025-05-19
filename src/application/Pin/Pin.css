@@ -46,6 +46,7 @@
   text-align: center;
 }
 
+
 /* Placeholder для графика плотности */
 .density-chart-placeholder {
   width: 100%;
@@ -341,6 +342,16 @@
 .forecast-half {
   padding: 10px;
   border: 1px solid transparent;
+  box-sizing: border-box;
+  overflow-x: auto; /* добавим прокрутку только при необходимости */
+}
+
+.forecast-section .data-table,
+.forecast-half .data-table {
+  width: 100%;
+  min-width: 600px; /* не даем таблице схлопнуться */
+  border-collapse: collapse;
+  white-space: nowrap;
 }
 
 .forecast-section h4,

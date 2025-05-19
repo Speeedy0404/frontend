@@ -191,55 +191,31 @@ const PaginatedSortableTable = ({ select, data, columns, maxSelectable, onBindCh
     return value.includes(searchTerm.toLowerCase());
   });
 
-  // const sortedData = [...filteredData].sort((a, b) => {
-  //   let aValue = a[sortConfig.key];
-  //   let bValue = b[sortConfig.key];
-
-  //   // Обработка пустых значений
-  //   if (aValue === undefined || aValue === null || aValue === '') aValue = -Infinity;
-  //   if (bValue === undefined || bValue === null || bValue === '') bValue = -Infinity;
-
-  //   // Проверяем — это числа?
-  //   const aNum = parseFloat(aValue);
-  //   const bNum = parseFloat(bValue);
-
-  //   const bothNumbers = !isNaN(aNum) && !isNaN(bNum);
-
-  //   if (bothNumbers) {
-  //     // Сортируем как числа
-  //     return sortConfig.direction === 'asc' ? aNum - bNum : bNum - aNum;
-  //   } else {
-  //     // Сортируем как строки
-  //     const aStr = aValue.toString();
-  //     const bStr = bValue.toString();
-  //     if (aStr < bStr) return sortConfig.direction === 'asc' ? -1 : 1;
-  //     if (aStr > bStr) return sortConfig.direction === 'asc' ? 1 : -1;
-  //     return 0;
-  //   }
-  // });
-
   const sortedData = [...filteredData].sort((a, b) => {
-    // Если сортируем по колонке "Выбор"
     if (sortConfig.key === 'Выбор') {
-      const isSelectedA = selectedItems.includes(a.id);
-      const isSelectedB = selectedItems.includes(b.id);
-
-      // Если есть выбранные животные, сортируем по selectedItems
+      const isSelectedA = selectedItems.includes(a.uniq_key);
+      const isSelectedB = selectedItems.includes(b.uniq_key);
+          
       if (selectedItems.length > 0) {
-        if (isSelectedA && !isSelectedB) return -1;
-        if (!isSelectedA && isSelectedB) return 1;
-        return 0; // Если оба либо выбраны, либо нет — не меняем порядок
+        // Сортируем по selectedItems, но с учётом направления
+        if (isSelectedA && !isSelectedB)
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        if (!isSelectedA && isSelectedB)
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        return 0;
       } else {
-        // Если нет выбранных — сортируем по закрепленным
+        // Сортируем по consolidation, с направлением
         const isFixedA = a['consolidation'] === true;
         const isFixedB = b['consolidation'] === true;
-
-        if (isFixedA && !isFixedB) return -1;
-        if (!isFixedA && isFixedB) return 1;
-        return 0; // Если оба закреплены или нет — не меняем порядок
+    
+        if (isFixedA && !isFixedB)
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        if (!isFixedA && isFixedB)
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        return 0;
       }
     }
-
+    
     // Общая сортировка по другим колонкам
     let aValue = a[sortConfig.key];
     let bValue = b[sortConfig.key];
